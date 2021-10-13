@@ -1,0 +1,8 @@
+**pycache**
+*.pyc
+*.swp
+*.idea
+*.db
+geckodriver.log
+data
+
