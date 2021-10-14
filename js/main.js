@@ -121,7 +121,7 @@ function processData(data) {
 		`;
 
 		var marker = L.circleMarker([r.lat_5_GPS_location,r.long_5_GPS_location], circleMarker1)
-        .bindTooltip(tooltipContent, {direction:'right', offset: [10,-5], className:'mapToolTip'});
+        .bindTooltip(tooltipContent, {direction:'right', offset: [30,50], className:'mapToolTip'});
 
         marker.on('click', function() {
         	$('#content').html(`
