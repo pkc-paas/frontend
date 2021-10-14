@@ -3,6 +3,7 @@
 const STARTLOCATION = [18.5581,73.7854];
 const STARTZOOM = 14;
 const APIpath = 'https://server.nikhilvj.co.in/paas_backend';
+const photoPath = 'https://server.nikhilvj.co.in/paas_backend/getPhoto?f=';
 
 // ###########################################################
 // RUN ON PAGE LOAD

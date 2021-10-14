@@ -36,17 +36,17 @@ var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, auto
 // https://github.com/Leaflet/Leaflet.fullscreen
 map.addControl(new L.Control.Fullscreen({position:'topright'}));
 
-L.control.custom({
-    position: 'bottomright',
-    content: `<div class="legend" id="legendContent"></div>`,
-    classes: 'divOnMap_right'
-}).addTo(map);
+// L.control.custom({
+//     position: 'bottomright',
+//     content: `<div class="legend" id="legendContent"></div>`,
+//     classes: 'divOnMap_right'
+// }).addTo(map);
 
-L.control.custom({
-    position: 'bottomleft',
-    content: `<div id="leftInfo"></div>`,
-    classes: 'divOnMap_left'
-}).addTo(map);
+// L.control.custom({
+//     position: 'bottomleft',
+//     content: `<div id="leftInfo"></div>`,
+//     classes: 'divOnMap_left'
+// }).addTo(map);
 
 plantationLayer.addTo(map);
 
@@ -103,10 +103,13 @@ function processData(data) {
 	plantationLayer.clearLayers();
 	data.forEach(r => {
 		console.log(r);
-		let tooltipContent = `${r.title}`;
+		let tooltipContent = `${r.title}<br>
+		<div width="100px" heigh="100px">
+		<img src="${photoPath}${r.ec5_uuid}_1.jpg"></div>
+		`;
 
 		var marker = L.circleMarker([r.lat_5_GPS_location,r.long_5_GPS_location], circleMarker1)
-        .bindTooltip(tooltipContent, {direction:'top', offset: [0,-5]});
+        .bindTooltip(tooltipContent, {direction:'right', offset: [10,-5]});
 
         marker.addTo(plantationLayer);
         marker.on('click', function() {
