@@ -1,3 +1,8 @@
+// ###########################################################
+// CONSTANTS
+const STARTLOCATION = [18.5581,73.7854];
+const STARTZOOM = 14;
+const APIpath = 'https://server.nikhilvj.co.in/paas_backend';
 
 // ###########################################################
 // RUN ON PAGE LOAD
@@ -19,8 +24,6 @@ $(document).ready(function() {
     // tooltips:
     $('[data-toggle="tooltip"]').tooltip();
 
-    // run authentication / API key handler:
-    checkCookie();
 
 });
 
