@@ -111,9 +111,22 @@ function processData(data) {
 		var marker = L.circleMarker([r.lat_5_GPS_location,r.long_5_GPS_location], circleMarker1)
         .bindTooltip(tooltipContent, {direction:'right', offset: [10,-5]});
 
-        marker.addTo(plantationLayer);
         marker.on('click', function() {
+        	$('#content').html(`
+        		<p>
+        		Title: ${r.title}<br>
+        		Sapling ID: ${r['3_Sapling_ID']}<br>
+        		Local Name: ${r['6_Local_name_of_the_']}<br>
+        		Botanical Name: ${r['7_Botanical_name_of_']}<br>
+        		Date: ${r['1_Date_of_measuremen']}<br>
+        		Measurement Team: ${r['2_Measurement_team_I']}<br>
+        		Location: ${r.lat_5_GPS_location}, ${r.long_5_GPS_location}<br>
+        		</p>
+        		<img src="${photoPath}${r.ec5_uuid}_1.jpg"><br><br>
+        		<img src="${photoPath}${r.ec5_uuid}_2.jpg">
+        	`);
         });
+        marker.addTo(plantationLayer);
 	});
 	if (!map.hasLayer(plantationLayer)) map.addLayer(plantationLayer);
 
