@@ -62,6 +62,19 @@ var circleMarker1 = {
 
 // var hash = new L.Hash(map);
 
+// Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
+var crosshairIcon = L.icon({
+    iconUrl: crosshairPath,
+    iconSize:     [crosshairSize, crosshairSize], // size of the icon
+    iconAnchor:   [crosshairSize/2, crosshairSize/2], // point of the icon which will correspond to marker's location
+});
+crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, interactive:false});
+crosshair.addTo(map);
+// Move the crosshair to the center of the map when the user pans
+map.on('move', function(e) {
+    var currentLocation = map.getCenter();
+    crosshair.setLatLng(currentLocation);
+});
 
 
 // ############################################
@@ -119,10 +132,10 @@ function processData(data) {
         		Botanical Name: ${r['7_Botanical_name_of_']}<br>
         		Date: ${r['1_Date_of_measuremen']}<br>
         		Measurement Team: ${r['2_Measurement_team_I']}<br>
-        		Location: ${r.lat_5_GPS_location}, ${r.long_5_GPS_location}<br>
-        		</p>
-        		<img src="${photoPath}${r.ec5_uuid}_1.jpg"><br><br>
-        		<img src="${photoPath}${r.ec5_uuid}_2.jpg">
+        		Location: <span title="click to zoom here" onclick="zoomTo(${r.lat_5_GPS_location},${r.long_5_GPS_location})">${r.lat_5_GPS_location}, ${r.long_5_GPS_location}<br>
+        		</span></p>
+        		<img src="${photoPath}${r.ec5_uuid}_2.jpg"><br><br>
+        		<img src="${photoPath}${r.ec5_uuid}_1.jpg">
         	`);
         });
         marker.addTo(plantationLayer);
@@ -131,6 +144,6 @@ function processData(data) {
 
 }
 
-function displayData(r) {
-
+function zoomTo(lat,lon) {
+	map.flyTo([lat,lon],18,{});
 }
