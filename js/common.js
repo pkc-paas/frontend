@@ -1,3 +1,13 @@
+// ###########################################################
+// CONSTANTS
+const STARTLOCATION = [18.5581,73.7854];
+const STARTZOOM = 14;
+
+const crosshairPath = 'lib/focus-black.svg';
+const crosshairSize = 50;
+
+const APIpath = 'https://server.nikhilvj.co.in/paas_backend';
+const photoPath = 'https://server.nikhilvj.co.in/paas_backend/getPhoto?f=';
 
 // ###########################################################
 // RUN ON PAGE LOAD
@@ -19,8 +29,6 @@ $(document).ready(function() {
     // tooltips:
     $('[data-toggle="tooltip"]').tooltip();
 
-    // run authentication / API key handler:
-    checkCookie();
 
 });
 
