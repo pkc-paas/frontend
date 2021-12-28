@@ -6,8 +6,13 @@ const STARTZOOM = 14;
 const crosshairPath = 'lib/focus-black.svg';
 const crosshairSize = 50;
 
-const APIpath = 'https://server.nikhilvj.co.in/paas_backend';
-const photoPath = 'https://server.nikhilvj.co.in/paas_backend/getPhoto?f=';
+let APIpath = 'https://server.nikhilvj.co.in/paas_backend';
+if (window.location.host =="localhost:8000") APIpath = 'http://localhost:5400';
+
+let photoPath = `${APIpath}/getPhoto?f=`;
+var globalLoggedIn = false;
+var globalRole = '';
+var globalUser = '';
 
 // ###########################################################
 // RUN ON PAGE LOAD
@@ -43,24 +48,29 @@ function topMenu() {
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="about_us.html">About Us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="our_partners.html">Our Partners</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Gallery</a>
-      </li>
+    <ul class="navbar-nav mr-auto" id="menuItems">
+        <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="about_us.html">About Us</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="our_partners.html">Our Partners</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Gallery</a>
+        </li>
     </ul>
     <ul class="navbar-nav">
-        <li class="nav-item">
-        <a class="nav-link" href="">Sign Up</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="">Login</a>
-      </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="account_toptext">Account</span></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
+                <a class="dropdown-item" href="#" id="account_info">Not logged in</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" onclick="logOutOrIn()" id="login_logout">Login</a>
+            </div>
+        </li>
     </ul>
   </div>
 </nav>
@@ -76,4 +86,101 @@ function footer(){
     </div>
     </footer>`;
     $('#footer').html(footer);
+}
+
+
+// ###########################################################
+// Login management related
+
+function setCookie(cname, cvalue, exdays = 7) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function logout() {
+    $('#account_toptext').html(`Logging out..`)
+    $.ajax({
+        url : `${APIpath}/logout`,
+        type : 'GET',
+        cache: false,
+        contentType: 'application/json',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        success : function(returndata) {
+            console.log(returndata);
+            setCookie("paas_user", "", 1);
+            setCookie("paas_auth_token","",1);
+            $('#account_toptext').html(`Logged out`)
+            setTimeout(function () {
+              window.location.href = "index.html";
+            }, 1000);
+            
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            setTimeout(function () {
+              window.location.href = "index.html";
+            }, 2000);
+        }
+    });
+}
+
+function loggedInCheck() {
+    let token = getCookie('paas_auth_token');
+    if (!token) return;
+
+    // checkUser
+    $.ajax({
+        url : `${APIpath}/checkUser`,
+        type : 'GET',
+        cache: false,
+        contentType: 'application/json',
+        headers: { "x-access-key": token },
+        success : function(returndata) {
+            console.log(returndata);
+            $('#account_info').html(`${returndata.username} - ${returndata.role}`);
+            $('#login_logout').html(`Logout`);
+            globalLoggedIn = true;
+            globalRole = returndata.role;
+            globalUser = returndata.username;
+            if(['admin','moderator'].includes(returndata.role)) {
+                $('#menuItems').append(`<li class="nav-item">
+                    <a class="nav-link" href="adoptions.html">Adoptions</a>
+                </li>`);
+            }
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            // setTimeout(function () {
+            //   window.location.href = "index.html";
+            // }, 2000);
+        }
+    });
+}
+
+function logOutOrIn() {
+    if(globalLoggedIn) {
+        logout();
+    } else {
+        setTimeout(function () {
+            window.location.href = "index.html";
+        }, 1000);
+    }
 }
