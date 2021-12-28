@@ -3,7 +3,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Login</title>
+<title>Sign Up</title>
 
 <link href="lib/jquery-ui.css" rel="stylesheet">
 <link href="lib/bootstrap.v4.0.0.min.css" crossorigin="anonymous" alt="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
@@ -22,10 +22,15 @@ body {
 </head>
 <body>
 <div id="topMenu"></div>
+    <h4>Sign Up</h4>
+    <!-- check out https://getbootstrap.com/docs/4.0/components/forms/?#custom-forms -->
+    <p><input placeholder="Name" id="name"></p>
+    <p><input placeholder="Username" id="username"></p>
+    <p><input placeholder="Email" id="email"></p>
+    <p><input placeholder="Password" id="pw" type="password"></p>
+    <p><input placeholder="Confirm Password" id="pw_confirm" type="password"> <span id="pwcheck"></span></p>
 
-    <p><input placeholder="username" id="username"></p>
-    <p><input placeholder="password" id="pw" type="password"></p>
-    <p><button onclick="login()" type="submit">Submit</button> <span id="loginStatus"></span></p>  
+    <p><button onclick="login()" type="submit">Submit</button></p>  
 
 <script src="js/common.js"></script>
 <script src="js/login.js"></script>
