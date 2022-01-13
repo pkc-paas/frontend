@@ -178,7 +178,11 @@ $(document).ready(function () {
 // FUNCTIONS
 
 function loadAdoptionEntries() {
-
+    $('#actionDiv1').html(`Select some entries to take action`);
+    $('#actionDiv2').html(`Select some entries to take action`);
+    tabulator1.clearData();
+    tabulator2.clearData();
+    
     let payload = {};
     $.ajax({
         url : `${APIpath}/viewAdoptionEntries`,
