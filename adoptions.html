@@ -4,7 +4,7 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Home</title>
+<title>Adoptions</title>
 <link href="lib/leaflet.css" orig="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" rel="stylesheet">
 <link href="lib/jquery-ui.css" rel="stylesheet">
 <link href="lib/tabulator.min.css" rel="stylesheet">
@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="lib/easy-button.css" alt="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <link rel="stylesheet" href="lib/chosen/chosen.min.css">
 <link href='lib/leaflet.fullscreen.css' alt='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+<link rel="stylesheet" href="lib/easy-button.css">
 <!-- <link href="lib/flatpickr.min.css" rel="stylesheet">
  -->
 <link href="js/common.css" rel="stylesheet">
@@ -34,9 +35,11 @@
 <script src="lib/leaflet-hash.min.js"></script>
 <!-- <script src="lib/flatpickr.js"></script> -->
 <script src="lib/Leaflet.Control.Custom.js"></script>
+<script src="lib/leaflet-lasso.min.js"></script>
+<script src="lib/easy-button.js"></script>
 <style>
 body {
-    font-size: 1em;
+  font-size: 1em;
 }
 #map {
 height: 85vh;
@@ -50,12 +53,10 @@ input[type=checkbox] {
   vertical-align: middle; 
 }
 
-img .leftPreview {
-    width: auto;
-    height : auto;
-    max-height: 100%;
-    max-width: 100%;
+.tab-pane {
+  padding-top: 20px;
 }
+
 </style>
 </head>
 <body>
@@ -65,12 +66,45 @@ img .leftPreview {
 
 <div class="container-fluid">
 <div class="row">
-    <div class="col-md-8">
+  <div class="col-md-8">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Requests</a>
+        <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Adopted</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-tab1" role="tabpanel" aria-labelledby="nav-tab1-tab">
+        <div class="row">
+          <div class="col-md-4">
+            <h4>Requests for Adoption</h4>
+          </div>
+          <div class="col-md-8 rightAlign">
+            <div id="actionDiv1">Select some entries to take action</div>
+          </div>
+        </div>
         <div id="tabulator1"></div>
+      </div>
+      <div class="tab-pane fade" id="nav-tab2" role="tabpanel" aria-labelledby="nav-tab2-tab">
+        <div class="row">
+          <div class="col-md-4">
+            <h4>Adopted Saplings</h4>
+          </div>
+          <div class="col-md-8 rightAlign">
+            <div id="actionDiv2">Select some entries to take action</div>
+          </div>
+        </div>
+
+        <div id="tabulator2"></div>
+      </div>
     </div>
-    <div class="col-md-4">
-        <div id="map"></div>
-    </div>
+  </div>
+    
+
+    
+  <div class="col-md-4">
+    <div id="map"></div>
+  </div>
 </div>
 
 

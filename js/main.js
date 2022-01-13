@@ -180,9 +180,6 @@ function processData(returndata) {
 
 }
 
-function zoomTo(lat,lon) {
-    map.flyTo([lat,lon],18,{});
-}
 
 function requestAdoption(sapling_id) {
     console.log("requestAdoption",sapling_id);
@@ -191,7 +188,7 @@ function requestAdoption(sapling_id) {
     let payload = {"data":[{
         "sapling_id": sapling_id,
         "adopted_name": $('#adopted_name').val(),
-        "comments": $('#comments').val() || '',
+        "comments": $('#adopt_comments').val() || '',
     }]};
     $('#requestAdoption_status').html("Submitting request..");
     // requestAdoption

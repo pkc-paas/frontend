@@ -184,3 +184,7 @@ function logOutOrIn() {
         }, 1000);
     }
 }
+
+function zoomTo(lat,lon) {
+    map.flyTo([lat,lon],18,{});
+}
