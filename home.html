@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="lib/easy-button.css" alt="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <link rel="stylesheet" href="lib/chosen/chosen.min.css">
 <link href='lib/leaflet.fullscreen.css' alt='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- <link href="lib/flatpickr.min.css" rel="stylesheet">
  -->
 <link href="js/common.css" rel="stylesheet">
@@ -35,12 +36,14 @@
 <script src="lib/leaflet-hash.min.js"></script>
 <!-- <script src="lib/flatpickr.js"></script> -->
 <script src="lib/Leaflet.Control.Custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <style>
 body {
     font-size: 1em;
 }
 #map {
-height: 85vh;
+height: 70vh;
 width: 100%;
 }
 
@@ -194,46 +197,56 @@ input[type=checkbox] {
     font-weight: 600;
 }
 
-div > img {
-  width: auto;
-  height : auto;
-  max-height: 100%;
-  max-width: 100%;
-} /* all images will preserve their aspect ratio now. from https://stackoverflow.com/a/11860417/4355695 */
 
 
-img .leftPreview {
+
+/*img .leftPreview {
     width: auto;
     height : auto;
     max-height: 100%;
     max-width: 100%;
-}
+}*/
 
 </style>
 
 </head>
 <body>
 <div id="topMenu"></div>
+<div class="headerOffset">
+<div id="map"></div>
+</div>
 
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-3">
-    <br>
-    <div id="content">
-        Click on a sapling on the map to see more details
+<div class="row littleTopSpace">
+    <div class="col-md-4" id="content1">
+        Loading saplings, please wait..
+        <br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
-    <br>
+
+    <div class="col-md-5" id="content2">
+        
+    </div>
+
+    <div class="col-md-3" id="content3">
+    </div>
 </div>
 
-<div class="col-md-9">
-    <div id="map"></div>
-    
+<div class="row littleTopSpace">
+    <div class="col-md-4" id="content1">
+        <h4>Observations</h4>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+    <div class="col-md-4" id="content2">
+        
+    </div>
+
+    <div class="col-md-4" id="content3">
+    </div>
 </div>
-</div>
-<div id="dump"></div>
 
 </div>
-
+<br><br>
 <div id="footer"></div>
 
 <script src="js/common.js"></script>

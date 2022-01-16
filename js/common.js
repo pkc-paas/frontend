@@ -1,6 +1,6 @@
 // ###########################################################
 // CONSTANTS
-const STARTLOCATION = [18.5581,73.7854];
+const STARTLOCATION = [18.57,73.7804];
 const STARTZOOM = 14;
 
 const crosshairPath = 'lib/focus-black.svg';
@@ -41,8 +41,10 @@ $(document).ready(function() {
 
 
 function topMenu() {
+    // navbar navbar-expand-lg navbar-light bg-light
+    // sticky menu: https://getbootstrap.com/docs/4.0/components/navbar/#placement
     var menu = `
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
   <a class="navbar-brand" href="index.html">PAAS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

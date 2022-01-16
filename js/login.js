@@ -30,11 +30,16 @@ function login() {
             $('#loginStatus').html(`Logged in, taking you to home page..`);
             setTimeout(function () {
                 window.location.href = "home.html";
-            }, 1000);
+            }, 500);
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);
-            alert(jqXHR.responseText);
+            try {
+                let a = JSON.parse(jqXHR.responseText);
+                $('#loginStatus').html(a.detail);
+            } catch(err) {
+                $('#loginStatus').html(jqXHR.responseText);
+            }
             // var data = JSON.parse(jqXHR.responseText);
             // $('#createUserStatus').html(data['message']);
         }

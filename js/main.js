@@ -83,6 +83,13 @@ map.on('move', function(e) {
 $(document).ready(function () {
     loggedInCheck();
     loadMap();
+
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+
+    // $("img").unveil(); // http://luis-almeida.github.io/unveil/
 });
 
 
@@ -104,7 +111,7 @@ function loadMap() {
         success : function(returndata) {
             // var returnJ = JSON.parse(returndata);
             processData(returndata);
-            $('#content').html(`Click on a sapling on the map to see more details`);
+            $('#content1').html(`Click on a sapling on the map to see more details<br><br><br><br><br>`);
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);
@@ -125,8 +132,10 @@ function processData(returndata) {
         let photos = r.first_photos.split(',');
         if(photos.length < 2) photos.push(photos[0]); // in case 2nd photo is missing, repeat the first
 
-        let tooltipContent = `${r.name}<br>
-        <img src="${photoPath}${photos[1]}"></div>
+        let tooltipContent = `${r.adoption_status=='approved' ? `${r.adopted_name} (${r.name})` : r.name}<br>
+        <div class="mapImgDiv">
+        <img class="mapImgPreview" src="${photoPath}${photos[1]}">
+        </div>
         `;
 
         var marker = L.circleMarker([r.lat,r.lon], { renderer: myRenderer,
@@ -141,37 +150,58 @@ function processData(returndata) {
 
         marker.on('click', function() {
             
-            let content = `<p>
-                Name: ${r.name}<br>
-                Local Name: ${r.local_name}<br>
-                Botanical Name: ${r.botanical_name}<br>
-                Date: ${r.planted_date}<br>
-                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})">${r.lat}, ${r.lon}<br>
-                </span></p>`;
+            let content1 = ``;
+            let content2 = ``;
+            let content3 = ``;
+
+            content1 += `<h4>${r.name}</h4>
+                <div class="sapling_images">
+                <div class="card">
+                <a href="${photoPath}${photos[1]}" data-toggle="lightbox">
+                <img class="imgPreview" src="${photoPath}${photos[1]}"></a>
+                </div>
+                <div class="card">
+                <a href="${photoPath}${photos[0]}" data-toggle="lightbox">
+                <img class="imgPreview" src="${photoPath}${photos[0]}"></a>
+                </div>
+                </div>
+            `;
+
+            content2 += `<p>Status: ${r.adoption_status=='approved'?'Adopted':'<b>Available for Adoption</b>'}<br>`;
+            
+            content2 += `<p>
+                Local Name: ${r.local_name || ''}<br>
+                Botanical Name: ${r.botanical_name || ''}<br>
+                Planted Date: ${r.planted_date || ''} <br>
+                Data collection date: ${r.data_collection_date || ''}<br>
+                Group: ${r.group || ''}<br>
+                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary">${r.lat}, ${r.lon}
+                </span><br>
+                Description: ${r.description || ''}
+                </p>`;
+            
             
             let actionHTML='';
-
             if(globalRole == 'sponsor') {
-                actionHTML = `<p>Status: ${r.adoption_status=='approved'?'Adopted':'Available for Adoption'}<br>`;
                 if (r.adoption_status!='approved') {
                     //adopted_name comments
-                    actionHTML += `<p><input placeholder="adopted name" id="adopted_name" class="form-control" type="text"><br>
-                    <textarea placeholder="comments if any" id="adopt_comments" class="form-control"></textarea><br>
-                    <button class="btn btn-primary" onclick="requestAdoption('${r.id}')">Request to Adopt</button> 
+                    actionHTML += `<p>Request for Adoption</p>
+                    <input placeholder="adopted name" id="adopted_name" class="form-control bottomGap" type="text">
+                    <textarea placeholder="comments if any" id="adopt_comments" class="form-control bottomGap"></textarea>
+                    <button class="btn btn-primary bottomGap" onclick="requestAdoption('${r.id}')">Request to Adopt</button> 
                     <span id="requestAdoption_status"></span>
                     `;
                 }
-
-                content += actionHTML + '</p>';
             }
+            content3 += actionHTML;
             // else if (['admin','moderator'].includes(globalRole) && r.adoption_status=='requested') {
             //     actionHTML
             // }
-            content += `
-                <img class="leftPreview" src="${photoPath}${photos[1]}"><br><br>
-                <img class="leftPreview" src="${photoPath}${photos[0]}">`;
-            
-            $('#content').html(content);
+            $('#content1').html(content1);
+            $('#content2').html(content2);
+            $('#content3').html(content3);
+
+            loadObservations(r.id);
 
         });
         marker.addTo(plantationLayer);
@@ -223,4 +253,10 @@ function decideFillColor(adoption_status) {
     if(adoption_status == 'approved') return 'orange';
     if(adoption_status == 'requested') return 'blue';
     return 'green'; // default
+}
+
+function loadObservations(sapling_id) {
+    let payload = {
+        "sapling_id": sapling_id
+    };
 }
