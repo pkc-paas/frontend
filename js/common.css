@@ -28,9 +28,12 @@
 }
 
 .headerOffset {
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
+.headerOffset_tight {
+    margin-top: 56px;
+}
 /*div > img {
   width: auto;
   height : auto;
