@@ -129,12 +129,13 @@ function processData(returndata) {
     plantationLayer.clearLayers();
     returndata.data_confirmed.forEach(r => {
         // console.log(r);
-        let photos = r.first_photos.split(',');
-        if(photos.length < 2) photos.push(photos[0]); // in case 2nd photo is missing, repeat the first
+        // let photos = r.first_photos.split(',');
+        // if(photos.length < 2) photos.push(photos[0]); // in case 2nd photo is missing, repeat the first
+        let mapPhoto = r.first_photos[r.first_photos.length-1]; // take last photo as map hover pic
 
         let tooltipContent = `${r.adoption_status=='approved' ? `${r.adopted_name} (${r.name})` : r.name}<br>
         <div class="mapImgDiv">
-        <img class="mapImgPreview" src="${photoPath}${photos[1]}">
+        <img class="mapImgPreview" src="${photoPath}${mapPhoto}">
         </div>
         `;
 
@@ -155,17 +156,15 @@ function processData(returndata) {
             let content3 = ``;
 
             content1 += `<h4>${r.name}</h4>
-                <div class="sapling_images">
-                <div class="card">
-                <a href="${photoPath}${photos[1]}" data-toggle="lightbox">
-                <img class="imgPreview" src="${photoPath}${photos[1]}"></a>
-                </div>
-                <div class="card">
-                <a href="${photoPath}${photos[0]}" data-toggle="lightbox">
-                <img class="imgPreview" src="${photoPath}${photos[0]}"></a>
-                </div>
-                </div>
-            `;
+                <div class="sapling_images">`;
+            r.first_photos.forEach(p => {
+                content1 += `<div class="card">
+                <a href="${photoPath}${p}" data-toggle="lightbox">
+                <img class="imgPreview" src="${photoPath}${p}"></a>
+                </div>`;
+            });
+            content1 += `</div>`;
+                
 
             content2 += `<p>Status: ${r.adoption_status=='approved'?'Adopted':'<b>Available for Adoption</b>'}<br>`;
             
