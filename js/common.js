@@ -6,10 +6,20 @@ const STARTZOOM = 14;
 const crosshairPath = 'lib/focus-black.svg';
 const crosshairSize = 50;
 
-let APIpath = 'https://server.nikhilvj.co.in/paas_backend';
-if (window.location.host =="localhost:8000") APIpath = 'http://localhost:5400';
+let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
+let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
+if (window.location.host =="localhost:8000") { 
+    APIpath = 'http://localhost:5400/API';
+    staticPath = 'http://localhost:5400/static'
+}
 
-let photoPath = `${APIpath}/getPhoto?f=`;
+// let photoPath = `${APIpath}/getPhoto?f=`;
+let photoPath = `${staticPath}/sapling_photos/`;
+let saplingThumbPath = `${staticPath}/sapling_thumbs/`;
+
+let obsPath = `${staticPath}/observation_files/`;
+let obsThumbsPath = `${staticPath}/observation_thumbs/`;
+
 var globalLoggedIn = false;
 var globalRole = '';
 var globalUser = '';

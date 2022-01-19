@@ -135,7 +135,7 @@ function processData(returndata) {
 
         let tooltipContent = `${r.adoption_status=='approved' ? `${r.adopted_name} (${r.name})` : r.name}<br>
         <div class="mapImgDiv">
-        <img class="mapImgPreview" src="${photoPath}${mapPhoto}">
+        <img class="mapImgPreview" src="${saplingThumbPath}${mapPhoto}">
         </div>
         `;
 
@@ -160,7 +160,7 @@ function processData(returndata) {
             r.first_photos.forEach(p => {
                 content1 += `<div class="card">
                 <a href="${photoPath}${p}" data-toggle="lightbox">
-                <img class="imgPreview" src="${photoPath}${p}"></a>
+                <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
                 </div>`;
             });
             content1 += `</div>`;
