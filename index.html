@@ -3,7 +3,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Login</title>
+<title>ConnecTrees Login</title>
 
 <link href="lib/jquery-ui.css" rel="stylesheet">
 <link href="lib/bootstrap.v4.0.0.min.css" crossorigin="anonymous" alt="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
@@ -25,11 +25,23 @@ body {
 <div id="topMenu"></div>
 <div class="headerOffset"></div>
 <div class="container">
-    <p><input placeholder="username" id="username"></p>
-    <p><input placeholder="password" id="pw" type="password"></p>
-    <p><button onclick="login()" type="submit">Submit</button> <span id="loginStatus"></span></p>  
+    <div class="row align-items-center">
+        <div class="col-md-6 landing-left">
+            <img src="assets/ConnecTrees_logo_450X450.jpg" class="landing-img">
+        </div>
+        <div class="col-md-6 landing-right">
+            <h3>ConnecTrees</h3>
+            <p><input placeholder="username" id="username" class="form-control bottomGap"></p>
+            <p><input placeholder="password" id="pw" type="password" class="form-control bottomGap"></p>
+            <p><button onclick="login()" type="submit" class="btn btn-primary btn-lg btn-block">Login</button> <span id="loginStatus"></span></p>
+            <hr>
+            <!-- <a href="javascript:{}">Register</a> -->
+        </div>
+    </div>
+
 
 </div>
+
 <script src="js/common.js"></script>
 <script src="js/login.js"></script>
 </body>

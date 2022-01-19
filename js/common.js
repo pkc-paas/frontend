@@ -41,8 +41,8 @@ $(document).ready(function() {
     $( "#tabs" ).tabs({
         active:0
     });
-    // tooltips:
-    $('[data-toggle="tooltip"]').tooltip();
+    // // tooltips:
+    // $('[data-toggle="tooltip"]').tooltip();
 
 
 });
@@ -54,12 +54,12 @@ function topMenu() {
     // navbar navbar-expand-lg navbar-light bg-light
     // sticky menu: https://getbootstrap.com/docs/4.0/components/navbar/#placement
     var menu = `
-<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
-  <a class="navbar-brand" href="index.html">PAAS</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
+  <a class="navbar-brand" href="index.html">ConnecTrees</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" id="menuItems">
         <li class="nav-item">
             <a class="nav-link" href="home.html">Home</a>

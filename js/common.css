@@ -53,7 +53,7 @@ div.sapling_images {
 }
 
 div.card {
-  width: 150px;
+  max-width: 150px;
   height: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   position: relative;
@@ -84,6 +84,24 @@ div.card {
     
 }
 
+
 .bottomGap {
     margin-bottom: 5px;
 }
+
+
+.landing-left {
+    text-align:  right;
+}
+
+.landing-img {
+    max-width: 100%;
+}
+
+.landing-right {
+    max-width: 300px; 
+    align-content: center;
+}
+/*.landing-right > p, .landing-right > h3 {
+    align: center;
+}*/
