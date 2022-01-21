@@ -115,3 +115,58 @@
 #uploadTray {
   padding-bottom: 100px;
 }
+
+
+/*Top Menu */
+li.nav-item {
+    height: 3.5rem;
+    display: table; 
+}
+li.nav-item > a {
+    height: 100%;
+    vertical-align: middle;
+    display: table-cell;
+    color: #ddd!important;
+    font-weight: 200;
+    transition: .3s;
+}
+li.nav-item > a:hover {
+    height: 100%;
+    background-color: yellow;
+    color: black!important;
+    transition: .3s;
+}
+
+/* menu dropdown / secondary menu items */
+
+/*a.dropdown-item {
+    height: 100%;
+    vertical-align: middle;
+    display: table-cell;
+    color: #ddd!important;
+    font-weight: 200;
+    transition: .3s;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: #555;
+    background-color: yellow;
+    color: black!important;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
+.dropdown-menu {
+    margin-top: -1px;
+    border: 0px;
+    border-radius: 0rem;
+}
+*/
+.navbar {
+    padding: 0 1rem;
+}

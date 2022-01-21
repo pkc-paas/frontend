@@ -30,6 +30,7 @@ $(document).ready(function() {
 
     topMenu();
     footer();
+    loggedInCheck();
 
     // initiate bootstrap / jquery components like tabs, accordions
     // initiate accordion

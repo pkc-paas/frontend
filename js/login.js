@@ -3,7 +3,7 @@
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
-    loggedInCheck();
+
 });
 
 

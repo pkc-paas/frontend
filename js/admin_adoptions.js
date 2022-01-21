@@ -140,8 +140,6 @@ L.easyButton('<img src="lib/lasso.jpg" width="100%" title="Click to activate Las
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
-    loggedInCheck();
-    // loadMap();
     loadAdoptionEntries();
 
     map.on('lasso.finished', (event) => {

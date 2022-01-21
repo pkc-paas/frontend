@@ -84,7 +84,6 @@ map.on('move', function(e) {
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
-    loggedInCheck();
     loadMap();
 
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
@@ -112,15 +111,12 @@ function loadMap() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            // var returnJ = JSON.parse(returndata);
             processData(returndata);
             $('#content1').html(`Click on a sapling on the map to see more details<br><br><br><br><br>`);
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);
-            alert(jqXHR.responseText);
-            // var data = JSON.parse(jqXHR.responseText);
-            // $('#createUserStatus').html(data['message']);
+            $('#content1').html(`Error: ${jqXHR.responseText}`);
         }
     });
 }
