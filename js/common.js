@@ -91,7 +91,7 @@ function footer(){
     var footer = `
     <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
     <div class="container text-center" style="color: white;">
-      <small>Copyright &copy; PKC Adopt-a-Sapling</small>
+      <small>Website by ConnecTrees. <a href="https://github.com/pkc-paas/" target="_blank">Github</a></small>
     </div>
     </footer>`;
     $('#footer').html(footer);
@@ -197,3 +197,26 @@ function logOutOrIn() {
 function zoomTo(lat,lon) {
     map.flyTo([lat,lon],18,{});
 }
+
+
+// #############################
+// Image upload preview related
+
+function displayAsImage(file, destId) {
+    var imgURL = URL.createObjectURL(file),
+        img = document.createElement('img');
+ 
+    img.onload = function() {
+      URL.revokeObjectURL(imgURL);
+    };
+ 
+    img.src = imgURL;
+    // 432 x 768
+    // img.style.height = '40%';
+    // img.style.width = '40%';
+    img.classList.add("imgPreview"); // from https://www.geeksforgeeks.org/how-to-dynamically-create-and-apply-css-class-in-javascript/
+    img.classList.add("card"); // from https://www.geeksforgeeks.org/how-to-dynamically-create-and-apply-css-class-in-javascript/
+
+    var uploadTray = document.querySelector(`#${destId}`);
+    uploadTray.appendChild(img);
+  }
