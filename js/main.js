@@ -2,6 +2,7 @@
 /* GLOBAL VARIABLES */
 
 var plantationLayer = new L.geoJson(null);
+var unconfirmedLayer = new L.geoJson(null);
 
 // #################################
 /* MAP */
@@ -29,7 +30,8 @@ L.control.scale({metric:true, imperial:false}).addTo(map);
 var myRenderer = L.canvas({ padding: 0.5 });
 
 var overlays = {
-    "plants": plantationLayer
+    "plants": plantationLayer,
+    "unconfirmed": unconfirmedLayer
 };
 var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, autoZIndex:false, position:'topright'}).addTo(map); 
 
@@ -38,6 +40,7 @@ map.addControl(new L.Control.Fullscreen({position:'topright'}));
 
 
 plantationLayer.addTo(map);
+// unconfirmedLayer.addTo(map);
 
 var circleMarker1 = {
     renderer: myRenderer,
@@ -140,7 +143,7 @@ function processData(returndata) {
         `;
 
         var marker = L.circleMarker([r.lat,r.lon], { renderer: myRenderer,
-            radius: 5,
+            radius: 6,
             fillColor: decideFillColor(r.adoption_status),
             color: 'white',
             weight: 0.5,
@@ -155,7 +158,7 @@ function processData(returndata) {
             let content2 = ``;
             let content3 = ``;
 
-            content1 += `<h4>${r.name}</h4>
+            content1 += `<h4>${r.name || r.id}</h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card">
@@ -206,6 +209,80 @@ function processData(returndata) {
         marker.addTo(plantationLayer);
     });
     if (!map.hasLayer(plantationLayer)) map.addLayer(plantationLayer);
+
+
+    // unconfirmed saplings
+    unconfirmedLayer.clearLayers();
+    returndata.data_unconfirmed.forEach(r => {
+        let mapPhoto = r.first_photos[r.first_photos.length-1]; // take last photo as map hover pic
+
+        let tooltipContent = `${r.name || r.id}<br>
+        <div class="mapImgDiv">
+        <img class="mapImgPreview" src="${saplingThumbPath}${mapPhoto}">
+        </div>
+        `;
+
+        var marker = L.circleMarker([r.lat,r.lon], { renderer: myRenderer,
+            radius: 5,
+            fillColor: "purple",
+            color: 'black',
+            weight: 0.5,
+            opacity: 1,
+            fillOpacity: 0.8
+        })
+        .bindTooltip(tooltipContent, {direction:'right', offset: [30,50], className:'mapToolTip'});
+
+        marker.on('click', function() {
+            
+            let content1 = ``;
+            let content2 = ``;
+            let content3 = ``;
+
+            content1 += `<h4>${r.name}</h4>
+                <div class="sapling_images">`;
+            r.first_photos.forEach(p => {
+                content1 += `<div class="card">
+                <a href="${photoPath}${p}" data-toggle="lightbox">
+                <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
+                </div>`;
+            });
+            content1 += `</div>`;
+                
+
+            content2 += `<p>Status: Unconfirmed Sapling<br>`;
+            
+            content2 += `<p>
+                Local Name: ${r.local_name || ''}<br>
+                Botanical Name: ${r.botanical_name || ''}<br>
+                Planted Date: ${r.planted_date || ''} <br>
+                Data collection date: ${r.data_collection_date || ''}<br>
+                Group: ${r.group || ''}<br>
+                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary">${r.lat}, ${r.lon}
+                </span><br>
+                Description: ${r.description || ''}
+                </p>`;
+            
+            
+            let actionHTML='';
+            if(['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
+                actionHTML += `<h4>Take action</h4>
+                    <button class="btn btn-primary bottomGap btn-lg btn-block" onclick="confirmSapling('${r.id}')">Confirm</button>
+                    <button class="btn btn-danger bottomGap btn-lg btn-block" onclick="rejectSapling('${r.id}')">Reject</button>
+                `;
+
+            }
+            content3 += actionHTML;
+            // else if (['admin','moderator'].includes(globalRole) && r.adoption_status=='requested') {
+            //     actionHTML
+            // }
+            $('#content1').html(content1);
+            $('#content2').html(content2);
+            $('#content3').html(content3);
+
+        });
+        marker.addTo(unconfirmedLayer);
+    });
+    // if (!map.hasLayer(unconfirmedLayer)) map.addLayer(unconfirmedLayer);
 
 }
 
@@ -258,4 +335,12 @@ function loadObservations(sapling_id) {
     let payload = {
         "sapling_id": sapling_id
     };
+}
+
+function confirmSapling() {
+    ;
+}
+
+function rejectSapling() {
+    ;
 }

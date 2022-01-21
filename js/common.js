@@ -164,16 +164,27 @@ function loggedInCheck() {
         headers: { "x-access-key": token },
         success : function(returndata) {
             console.log(returndata);
-            $('#account_info').html(`${returndata.username} - ${returndata.role}`);
-            $('#login_logout').html(`Logout`);
-            globalLoggedIn = true;
-            globalRole = returndata.role;
-            globalUser = returndata.username;
-            if(['admin','moderator'].includes(returndata.role)) {
-                $('#menuItems').append(`<li class="nav-item">
-                    <a class="nav-link" href="adoptions.html">Adoptions</a>
-                </li>`);
+            if(returndata.username) {
+                $('#account_info').html(`${returndata.username} - ${returndata.role}`);
+                $('#login_logout').html(`Logout`);
+                globalLoggedIn = true;
+                globalRole = returndata.role;
+                globalUser = returndata.username;
+                if(['admin','moderator'].includes(returndata.role)) {
+                    $('#menuItems').append(`<li class="nav-item">
+                        <a class="nav-link" href="adoptions.html">Adoptions</a>
+                    </li>`);
+                }
+                if(['admin','moderator','saplings_admin','saplings_entry'].includes(returndata.role)) {
+                    $('#menuItems').append(`<li class="nav-item">
+                        <a class="nav-link" href="sapling_upload.html">Upload Saplings</a>
+                    </li>`);
+                }
+            } else {
+                $('#account_info').html(`Guest`);
+                globalLoggedIn = false;
             }
+
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);

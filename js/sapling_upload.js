@@ -63,6 +63,8 @@ globalGeo = L.geolet({ position: 'topright',
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
+    loggedInCheck();
+    
     var input = document.querySelector('#mypic');
     input.onchange = function () {
         console.log(input.files.length);
