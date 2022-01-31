@@ -3,6 +3,7 @@
 
 var plantationLayer = new L.geoJson(null);
 var unconfirmedLayer = new L.geoJson(null);
+var globalSaplingId = '';
 
 // #################################
 /* MAP */
@@ -32,8 +33,9 @@ var myRenderer = L.canvas({ padding: 0.5 });
 var overlays = {
     "plants": plantationLayer,
     "unconfirmed": unconfirmedLayer
-};
-var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, autoZIndex:false, position:'topright'}).addTo(map); 
+}
+
+var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, autoZIndex:false, position:'bottomright'}).addTo(map); 
 
 // https://github.com/Leaflet/Leaflet.fullscreen
 map.addControl(new L.Control.Fullscreen({position:'topright'}));
@@ -150,11 +152,12 @@ function processData(returndata) {
 
         marker.on('click', function() {
             
+            // globalSaplingId = r.id;
             let content1 = ``;
             let content2 = ``;
             let content3 = ``;
 
-            content1 += `<h4>${r.name || r.id}</h4>
+            content1 += `<h4><span class="s_name">${r.name || ''}</span> <small>(id: ${r.id})</small></h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card">
@@ -168,14 +171,14 @@ function processData(returndata) {
             content2 += `<p>Status: ${r.adoption_status=='approved'?'Adopted':'<b>Available for Adoption</b>'}<br>`;
             
             content2 += `<p>
-                Local Name: ${r.local_name || ''}<br>
-                Botanical Name: ${r.botanical_name || ''}<br>
-                Planted Date: ${r.planted_date || ''} <br>
-                Data collection date: ${r.data_collection_date || ''}<br>
-                Group: ${r.group || ''}<br>
-                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary">${r.lat}, ${r.lon}
+                Local Name: <span class="s_local_name">${r.local_name || ''}</span><br>
+                Botanical Name: <span class="s_botanical_name">${r.botanical_name || ''}</span><br>
+                Planted Date: <span class="s_planted_date">${r.planted_date || ''}</span><br>
+                Data collection date: <span class="s_data_collection_date">${r.data_collection_date || ''}</span><br>
+                Group: <span class="s_group">${r.group || ''}</span><br>
+                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
-                Description: ${r.description || ''}
+                Description: <span class="s_description">${r.description || ''}</span>
                 </p>`;
             
             
@@ -190,11 +193,14 @@ function processData(returndata) {
                     <span id="requestAdoption_status"></span>
                     `;
                 }
+            } else if (['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
+                actionHTML += `<h4>Take action</h4>
+                    <button class="btn btn-warning bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
+                    <span id="actionStatus"></span>
+                `;
             }
             content3 += actionHTML;
-            // else if (['admin','moderator'].includes(globalRole) && r.adoption_status=='requested') {
-            //     actionHTML
-            // }
+            
             $('#content1').html(content1);
             $('#content2').html(content2);
             $('#content3').html(content3);
@@ -210,6 +216,7 @@ function processData(returndata) {
     // unconfirmed saplings
     unconfirmedLayer.clearLayers();
     returndata.data_unconfirmed.forEach(r => {
+        // globalSaplingId = r.id;
         let mapPhoto = r.first_photos[r.first_photos.length-1]; // take last photo as map hover pic
 
         let tooltipContent = `${r.name || r.id}<br>
@@ -234,7 +241,7 @@ function processData(returndata) {
             let content2 = ``;
             let content3 = ``;
 
-            content1 += `<h4>${r.name}</h4>
+            content1 += `<h4><span class="s_name">${r.name || ''}</span> <small>(id: ${r.id})</small></h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card">
@@ -248,22 +255,24 @@ function processData(returndata) {
             content2 += `<p>Status: Unconfirmed Sapling<br>`;
             
             content2 += `<p>
-                Local Name: ${r.local_name || ''}<br>
-                Botanical Name: ${r.botanical_name || ''}<br>
-                Planted Date: ${r.planted_date || ''} <br>
-                Data collection date: ${r.data_collection_date || ''}<br>
-                Group: ${r.group || ''}<br>
-                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary">${r.lat}, ${r.lon}
+                Local Name: <span class="s_local_name">${r.local_name || ''}</span><br>
+                Botanical Name: <span class="s_botanical_name">${r.botanical_name || ''}</span><br>
+                Planted Date: <span class="s_planted_date">${r.planted_date || ''}</span> <br>
+                Data collection date: <span class="s_data_collection_date">${r.data_collection_date || ''}</span><br>
+                Group: <span class="s_group">${r.group || ''}</span><br>
+                Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
-                Description: ${r.description || ''}
+                Description: <span class="s_description">${r.description || ''}</span>
                 </p>`;
             
             
             let actionHTML='';
             if(['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
                 actionHTML += `<h4>Take action</h4>
-                    <button class="btn btn-primary bottomGap btn-lg btn-block" onclick="confirmSapling('${r.id}')">Confirm</button>
-                    <button class="btn btn-danger bottomGap btn-lg btn-block" onclick="rejectSapling('${r.id}')">Reject</button>
+                    <button class="btn btn-primary bottomGap btn-md btn-block" onclick="confirmSapling('${r.id}')">Confirm</button>
+                    <button class="btn btn-warning bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
+                    <button class="btn btn-danger bottomGap btn-md btn-block" onclick="rejectSapling('${r.id}')">Reject</button>
+                    <span id="actionStatus"></span>
                 `;
 
             }
@@ -333,10 +342,95 @@ function loadObservations(sapling_id) {
     };
 }
 
-function confirmSapling() {
-    ;
+function confirmSapling(sapling_id) {
+    let payload = { 'sapling_id': sapling_id, 'accepted':true };
+    $('#actionStatus').html(`Confirming..`);
+    $.ajax({
+        url : `${APIpath}/processUploadedSapling`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        success : function(returndata) {
+            $('#actionStatus').html(`Confirmed sapling. (Reload page to see changes)`);
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            $('#actionStatus').html(`Error: ${jqXHR.responseText}`);
+        }
+    });
 }
 
-function rejectSapling() {
-    ;
+function rejectSapling(sapling_id) {
+    let payload = { 'sapling_id': sapling_id, 'accepted':false };
+    $('#actionStatus').html(`Rejecting..`);
+    $.ajax({
+        url : `${APIpath}/processUploadedSapling`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        success : function(returndata) {
+            $('#actionStatus').html(`Rejected sapling. (Reload page to see changes)`);
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            $('#actionStatus').html(`Error: ${jqXHR.responseText}`);
+        }
+    });
+}
+
+function editSaplingStart(sapling_id) {
+    console.log('editSaplingStart',sapling_id);
+    // populate fields
+    $('#edit_sapling_id').html(sapling_id);
+    $('#edit_name').val($('.s_name').html()); 
+    $('#edit_local_name').val($('.s_local_name').html()); 
+    $('#edit_botanical_name').val($('.s_botanical_name').html()); 
+    $('#edit_planted_date').val($('.s_planted_date').html()); 
+    $('#edit_data_collection_date').val($('.s_data_collection_date').html()); 
+    $('#edit_group').val($('.s_group').html()); 
+    $('#edit_description').val($('.s_description').html());
+    
+    $('#editSapling_status').html(``);
+    $('#modal_editSapling').modal('show');
+
+}
+
+function editSapling() {
+    let payload = {
+        'sapling_id' : $('#edit_sapling_id').html(),
+        'name': $('#edit_name').val(),
+        'local_name' : $('#edit_local_name').val(),
+        'botanical_name' : $('#edit_botanical_name').val(),
+        'planted_date' : $('#edit_planted_date').val(),
+        'data_collection_date' : $('#edit_data_collection_date').val(),
+        'group' : $('#edit_group').val(),
+        'description' : $('#edit_description').val()
+    }
+    $('#editSapling_status').html(`Saving...`);
+    $.ajax({
+        url : `${APIpath}/editSapling`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        success : function(returndata) {
+            $('#editSapling_status').html(`Saved.`);
+            setTimeout(function () {
+                $('#modal_editSapling').modal('hide');
+            }, 500);
+
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            $('#editSapling_status').html(`Error: ${jqXHR.responseText}`);
+        }
+    });
+
+
+    
 }
