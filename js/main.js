@@ -152,7 +152,7 @@ function processData(returndata) {
 
         marker.on('click', function() {
             
-            // globalSaplingId = r.id;
+            globalSaplingId = r.id;
             let content1 = ``;
             let content2 = ``;
             let content3 = ``;
@@ -194,7 +194,7 @@ function processData(returndata) {
                     `;
                 }
             } else if (['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
-                actionHTML += `<h4>Take action</h4>
+                actionHTML += `<h4>Action</h4>
                     <button class="btn btn-warning bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
                     <span id="actionStatus"></span>
                 `;
@@ -216,7 +216,6 @@ function processData(returndata) {
     // unconfirmed saplings
     unconfirmedLayer.clearLayers();
     returndata.data_unconfirmed.forEach(r => {
-        // globalSaplingId = r.id;
         let mapPhoto = r.first_photos[r.first_photos.length-1]; // take last photo as map hover pic
 
         let tooltipContent = `${r.name || r.id}<br>
@@ -236,7 +235,8 @@ function processData(returndata) {
         .bindTooltip(tooltipContent, {direction:'right', offset: [30,50], className:'mapToolTip'});
 
         marker.on('click', function() {
-            
+            globalSaplingId = r.id;
+        
             let content1 = ``;
             let content2 = ``;
             let content3 = ``;
@@ -429,8 +429,33 @@ function editSapling() {
             console.log('error:',jqXHR.responseText);
             $('#editSapling_status').html(`Error: ${jqXHR.responseText}`);
         }
-    });
+    });   
+}
 
+// ##########################
 
-    
+function loadObservations() {
+    let payload = {
+        "saplingsList": [globalSaplingId]
+    };
+    $(`#observations_summary`).html(`Loading..`);
+    $.ajax({
+        url : `${APIpath}/viewObservations`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        success : function(returndata) {
+            $('#editSapling_status').html(`Saved.`);
+            setTimeout(function () {
+                $('#modal_editSapling').modal('hide');
+            }, 500);
+
+        },
+        error: function(jqXHR, exception) {
+            console.log('error:',jqXHR.responseText);
+            $('#editSapling_status').html(`Error: ${jqXHR.responseText}`);
+        }
+    });  
 }
