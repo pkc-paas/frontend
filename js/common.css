@@ -62,6 +62,11 @@
 
 }
 
+.decorated_img {
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-width: 100%;
+}
 /* map hover img in a box. from https://stackoverflow.com/a/18674144/4355695*/
 .mapImgDiv {
     width: 150px;
