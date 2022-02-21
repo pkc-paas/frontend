@@ -70,6 +70,18 @@ map.on('move', function(e) {
     crosshair.setLatLng(currentLocation);
 });
 
+L.control.search({
+    layer: plantationLayer,
+    initial: false,
+    propertyName: 'name',
+    buildTip: function(text, val) {
+        var group = val.layer.feature.properties.group;
+        return `<a href="#" class="${group}">${text} &nbsp; <small>(${group})</small></a>`;
+    },
+    textPlaceholder: 'Search by name'
+})
+.addTo(map);
+
 // L.control.custom({
 //     position: 'bottomright',
 //     content: `<div class="legend" id="legendContent"></div>`,
@@ -94,6 +106,7 @@ $(document).ready(function () {
     });
 
     // $("img").unveil(); // http://luis-almeida.github.io/unveil/
+
 });
 
 
@@ -176,10 +189,14 @@ function processData(returndata) {
                 Planted Date: <span class="s_planted_date">${r.planted_date || ''}</span><br>
                 Data collection date: <span class="s_data_collection_date">${r.data_collection_date || ''}</span><br>
                 Group: <span class="s_group">${r.group || ''}</span><br>
+                Height: <span class="s_height">${r.height || ''}</span> | 
+                Canopy: <span class="s_canopy">${r.canopy || ''}</span> |
+                Girth@1m: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
                 Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
-                Description: <span class="s_description">${r.description || ''}</span>
-                </p>`;
+                Description: <span class="s_description">${r.description || ''}</span><br>
+                </p>
+                <p><button class="btn" onclick="loadObservations()">Load Observations</button></p>`;
             
             
             let actionHTML='';
@@ -205,9 +222,12 @@ function processData(returndata) {
             $('#content2').html(content2);
             $('#content3').html(content3);
 
-            loadObservations(r.id);
+            // loadObservations(r.id);
 
         });
+        // for leaflet-search plugin: the marker needs to have feature.properties
+        marker.feature = {};
+        marker.feature.properties = r;
         marker.addTo(plantationLayer);
     });
     if (!map.hasLayer(plantationLayer)) map.addLayer(plantationLayer);
@@ -336,11 +356,6 @@ function decideFillColor(adoption_status) {
     return 'green'; // default
 }
 
-function loadObservations(sapling_id) {
-    let payload = {
-        "sapling_id": sapling_id
-    };
-}
 
 function confirmSapling(sapling_id) {
     let payload = { 'sapling_id': sapling_id, 'accepted':true };
@@ -438,7 +453,7 @@ function loadObservations() {
     let payload = {
         "saplingsList": [globalSaplingId]
     };
-    $(`#observations_summary`).html(`Loading..`);
+    $(`#loadObservations_status`).html(`Loading..`);
     $.ajax({
         url : `${APIpath}/viewObservations`,
         type : 'POST',
@@ -447,15 +462,13 @@ function loadObservations() {
         cache: false,
         contentType: 'application/json',
         success : function(returndata) {
-            $('#editSapling_status').html(`Saved.`);
-            setTimeout(function () {
-                $('#modal_editSapling').modal('hide');
-            }, 500);
+            console.log(returndata);
+            $('#loadObservations_status').html(`Loaded.`);
 
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);
-            $('#editSapling_status').html(`Error: ${jqXHR.responseText}`);
+            $('#loadObservations_status').html(`Error: ${jqXHR.responseText}`);
         }
     });  
 }

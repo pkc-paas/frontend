@@ -13,9 +13,9 @@
 <link rel="stylesheet" href="lib/easy-button.css" alt="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <link rel="stylesheet" href="lib/chosen/chosen.min.css">
 <link href='lib/leaflet.fullscreen.css' alt='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- <link href="lib/flatpickr.min.css" rel="stylesheet">
- -->
+<link rel="stylesheet" href="lib/ekko-lightbox.css" orig="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="lib/leaflet-search.css" />
+
 <link href="js/common.css" rel="stylesheet">
 
 <!-- Put the CSSs first and JSs next -->
@@ -36,7 +36,8 @@
 <script src="lib/leaflet-hash.min.js"></script>
 <!-- <script src="lib/flatpickr.js"></script> -->
 <script src="lib/Leaflet.Control.Custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="lib/ekko-lightbox.min.js" orig="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="lib/leaflet-search.js"></script>
 
 <style>
 body {
@@ -154,8 +155,39 @@ input[type=checkbox] {
 <body>
 <div id="topMenu"></div>
 <div class="headerOffset_tight"></div>
-<div id="map"></div>
 
+<!-- <div id="sidebar" class="leaflet-sidebar collapsed">
+    <div class="leaflet-sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+            <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
+            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+        </ul>
+
+        <ul role="tablist"> 
+            <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="home">
+            <h1 class="leaflet-sidebar-header">
+                sidebar-v2
+                <div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div>
+            </h1>
+            <p>A responsive sidebar for mapping libraries</p>
+        </div>
+
+        <div class="leaflet-sidebar-pane" id="messages">
+            <h1 class="leaflet-sidebar-header">Messages<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+        </div>
+
+        <div class="leaflet-sidebar-pane" id="profile">
+            <h1 class="leaflet-sidebar-header">Profile<div class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></div></h1>
+        </div>
+    </div>
+</div> -->
+<div id="map"></div>
 
 <div class="container-fluid">
 <div class="row littleTopSpace">
@@ -174,9 +206,8 @@ input[type=checkbox] {
 
 <div class="row littleTopSpace">
     <div class="col-md-4">
-        <h4>Observations</h4>
+        <!-- <h4>Observations</h4> -->
         <span id="observations_summary">
-            <button onclick="loadObservations()" class="btn btn-secondary btn-lg">Load Observations</button>
         </span>
     </div>
 
