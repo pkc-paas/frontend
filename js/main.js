@@ -20,9 +20,9 @@ var baseLayers = { "OpenStreetMap.org" : OSM, "Carto Positron": cartoPositron, "
 var map = new L.Map('map', {
     center: STARTLOCATION,
     zoom: STARTZOOM,
-    layers: [cartoPositron],
+    layers: [gStreets],
     scrollWheelZoom: true,
-    maxZoom: 19,
+    maxZoom: 20,
 });
 $('.leaflet-container').css('cursor','crosshair'); // from https://stackoverflow.com/a/28724847/4355695 Changing mouse cursor to crosshairs
 L.control.scale({metric:true, imperial:false}).addTo(map);
@@ -73,10 +73,11 @@ map.on('move', function(e) {
 L.control.search({
     layer: plantationLayer,
     initial: false,
-    propertyName: 'name',
+    propertyName: 'search',
     buildTip: function(text, val) {
-        var group = val.layer.feature.properties.group;
-        return `<a href="#" class="${group}">${text} &nbsp; <small>(${group})</small></a>`;
+        let group = val.layer.feature.properties.group;
+        let name = val.layer.feature.properties.name;
+        return `<a href="#" class="${group}">${name} &nbsp; <small>(${group})</small></a>`;
     },
     textPlaceholder: 'Search by name'
 })
@@ -170,7 +171,8 @@ function processData(returndata) {
             let content2 = ``;
             let content3 = ``;
 
-            content1 += `<h4><span class="s_name">${r.name || ''}</span> <small>(id: ${r.id})</small></h4>
+            content1 += `<h4><span class="s_name">${r.name || ''}</span> <small>(id: ${r.id})</small>
+            ${r.adopted_name ? `<br>Adopted name: ${r.adopted_name}` : ''}</h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card">
@@ -181,7 +183,7 @@ function processData(returndata) {
             content1 += `</div>`;
                 
 
-            content2 += `<p>Status: ${r.adoption_status=='approved'?'Adopted':'<b>Available for Adoption</b>'}<br>`;
+            content2 += `<p>Status: ${r.adoption_status=='approved'?`Adopted`:'<b>Available for Adoption</b>'}<br>`;
             
             content2 += `<p>
                 Local Name: <span class="s_local_name">${r.local_name || ''}</span><br>
