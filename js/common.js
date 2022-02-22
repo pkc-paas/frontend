@@ -181,6 +181,12 @@ function loggedInCheck() {
                         <a class="nav-link" href="sapling_upload.html">Upload Saplings</a>
                     </li>`);
                 }
+
+                if(['admin'].includes(returndata.role)) {
+                    $('#menuItems').append(`<li class="nav-item">
+                        <a class="nav-link" href="users.html">Users</a>
+                    </li>`);
+                }
             } else {
                 $('#account_info').html(`Guest`);
                 globalLoggedIn = false;
