@@ -20,10 +20,10 @@ var baseLayers = { "Carto Positron": cartoPositron, "OpenStreetMap.org" : OSM, "
 
 var map = new L.Map('map', {
     center: STARTLOCATION,
-    zoom: STARTZOOM,
-    layers: [cartoPositron],
+    zoom: 19,
+    layers: [gStreets],
     scrollWheelZoom: true,
-    maxZoom: 19,
+    maxZoom: 20,
     touchZoom: 'center'
 });
 $('.leaflet-container').css('cursor','crosshair'); // from https://stackoverflow.com/a/28724847/4355695 Changing mouse cursor to crosshairs

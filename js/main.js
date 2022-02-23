@@ -42,7 +42,7 @@ map.addControl(new L.Control.Fullscreen({position:'topright'}));
 
 
 plantationLayer.addTo(map);
-// unconfirmedLayer.addTo(map);
+unconfirmedLayer.addTo(map);
 
 var circleMarker1 = {
     renderer: myRenderer,
@@ -83,11 +83,18 @@ L.control.search({
 })
 .addTo(map);
 
-// L.control.custom({
-//     position: 'bottomright',
-//     content: `<div class="legend" id="legendContent"></div>`,
-//     classes: 'divOnMap_right'
-// }).addTo(map);
+L.control.custom({
+    position: 'bottomleft',
+    content: `<div class="legend" id="legendContent">
+        <p><b>Legend</b><br>
+        <span style="background-color: #800080; display: inline-block; width: 15px; height: 15px; margin: 0px; "></span> Unconfirmed<br>
+        <span style="background-color: #008000; display: inline-block; width: 15px; height: 15px; margin: 0px; "></span> Confirmed<br>
+        <span style="background-color: #0000ff; display: inline-block; width: 15px; height: 15px; margin: 0px; "></span> Requested for Adoption<br>
+        <span style="background-color: #ffa500; display: inline-block; width: 15px; height: 15px; margin: 0px; "></span> Adopted<br>
+        </p>
+    </div>`,
+    classes: 'divOnMap_left'
+}).addTo(map);
 
 // L.control.custom({
 //     position: 'bottomleft',
@@ -291,8 +298,8 @@ function processData(returndata) {
             let actionHTML='';
             if(['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
                 actionHTML += `<h4>Take action</h4>
-                    <button class="btn btn-primary bottomGap btn-md btn-block" onclick="confirmSapling('${r.id}')">Confirm</button>
-                    <button class="btn btn-warning bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
+                    <button class="btn ctgreen bottomGap btn-md btn-block" onclick="confirmSapling('${r.id}')">Confirm</button>
+                    <button class="btn ctblue bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
                     <button class="btn btn-danger bottomGap btn-md btn-block" onclick="rejectSapling('${r.id}')">Reject</button>
                     <span id="actionStatus"></span>
                 `;
@@ -360,6 +367,8 @@ function decideFillColor(adoption_status) {
 
 
 function confirmSapling(sapling_id) {
+    if(!confirm("Are you sure you want to CONFIRM this sapling? It will be moved into confirmed saplings list.")) return;
+    
     let payload = { 'sapling_id': sapling_id, 'accepted':true };
     $('#actionStatus').html(`Confirming..`);
     $.ajax({
@@ -380,6 +389,8 @@ function confirmSapling(sapling_id) {
 }
 
 function rejectSapling(sapling_id) {
+    if(!confirm("Are you sure you want to REJECT this sapling? It will be removed.")) return;
+    
     let payload = { 'sapling_id': sapling_id, 'accepted':false };
     $('#actionStatus').html(`Rejecting..`);
     $.ajax({

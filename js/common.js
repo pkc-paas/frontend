@@ -55,8 +55,8 @@ function topMenu() {
     // navbar navbar-expand-lg navbar-light bg-light
     // sticky menu: https://getbootstrap.com/docs/4.0/components/navbar/#placement
     var menu = `
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top">
-  <a class="navbar-brand" href="index.html">ConnecTrees</a>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <a class="navbar-brand" href="home.html">ConnecTree</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -72,8 +72,8 @@ function topMenu() {
             <a class="nav-link" href="our_partners.html">Our Partners</a>
         </li>
     </ul>
-    <ul class="navbar-nav">
-        <li class="nav-item dropdown">
+    <ul class="navbar-nav navbar-dark">
+        <li class="nav-item dropdown navbar-dark">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="account_toptext">Account</span></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
                 <a class="dropdown-item" href="#" id="account_info">Not logged in</a>
@@ -92,7 +92,7 @@ function footer(){
     var footer = `
     <footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50">
     <div class="container text-center" style="color: white;">
-      <small>Website by ConnecTrees. <a href="https://github.com/pkc-paas/" target="_blank">Github</a></small>
+      <small>Website by ConnecTree. <a href="https://github.com/pkc-paas/" target="_blank">Github</a></small>
     </div>
     </footer>`;
     $('#footer').html(footer);
