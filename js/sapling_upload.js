@@ -126,6 +126,9 @@ function uploadSapling() {
     let planted_date = $('#planted_date').val();
     let data_collection_date = $('#data_collection_date').val();
     let description = $('#description').val();
+    let height = $('#height').val();
+    // let canopy = $('#canopy').val();
+    // let girth_1m = $('#girth_1m').val();
 
     if(!name.length || !data_collection_date.length) {
         alert('all essential fields not filled');
@@ -141,6 +144,10 @@ function uploadSapling() {
     formData.append('planted_date', planted_date );
     formData.append('data_collection_date', data_collection_date );
     formData.append('description', description );
+    formData.append('height', height );
+    // formData.append('canopy', canopy );
+    // formData.append('girth_1m', girth_1m );
+    
     $('#uploadSaplingStatus').html(`Uploading...`);
     $.ajax({
         url : `${APIpath}/uploadSapling`,
