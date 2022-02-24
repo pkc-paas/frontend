@@ -289,6 +289,9 @@ function processData(returndata) {
                 Planted Date: <span class="s_planted_date">${r.planted_date || ''}</span> <br>
                 Data collection date: <span class="s_data_collection_date">${r.data_collection_date || ''}</span><br>
                 Group: <span class="s_group">${r.group || ''}</span><br>
+                Height: <span class="s_height">${r.height || ''}</span> | 
+                Canopy: <span class="s_canopy">${r.canopy || ''}</span> |
+                Girth@1m: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
                 Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
                 Description: <span class="s_description">${r.description || ''}</span>
