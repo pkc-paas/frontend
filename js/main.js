@@ -200,7 +200,7 @@ function processData(returndata) {
                 Group: <span class="s_group">${r.group || ''}</span><br>
                 Height: <span class="s_height">${r.height || ''}</span> | 
                 Canopy: <span class="s_canopy">${r.canopy || ''}</span> |
-                Girth@1m: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
+                Girth: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
                 Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
                 Description: <span class="s_description">${r.description || ''}</span><br>
@@ -291,7 +291,7 @@ function processData(returndata) {
                 Group: <span class="s_group">${r.group || ''}</span><br>
                 Height: <span class="s_height">${r.height || ''}</span> | 
                 Canopy: <span class="s_canopy">${r.canopy || ''}</span> |
-                Girth@1m: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
+                Girth: <span class="s_girth_1m">${r.girth_1m || ''}</span><br>
                 Location: <span title="click to zoom here" onclick="zoomTo(${r.lat},${r.lon})" class="badge badge-secondary s_location">${r.lat}, ${r.lon}
                 </span><br>
                 Description: <span class="s_description">${r.description || ''}</span>

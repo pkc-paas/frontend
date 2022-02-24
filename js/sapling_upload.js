@@ -147,7 +147,7 @@ function uploadSapling() {
     formData.append('height', height );
     // formData.append('canopy', canopy );
     // formData.append('girth_1m', girth_1m );
-    
+
     $('#uploadSaplingStatus').html(`Uploading...`);
     $.ajax({
         url : `${APIpath}/uploadSapling`,
@@ -159,7 +159,10 @@ function uploadSapling() {
         headers: { "x-access-key": getCookie('paas_auth_token') },
         success : function(data) {
             console.log(data);
-            $('#uploadSaplingStatus').html(`Done`);
+            $('#uploadSaplingStatus').html(`Thank you! The sapling has been uploaded.`);
+            setTimeout(function () {
+                clearFields();
+            }, 1000);
         },
         error: function(jqXHR, exception) {
             console.log('uploadSapling POST request failed.');
@@ -171,7 +174,16 @@ function uploadSapling() {
 
 }
 
-// function mapToogle() {
-//     $('.collapse').collapse("toggle");
-
-// }
+function clearFields() {
+    $('#name').val('');
+    $('#group').val('');
+    $('#local_name').val('');
+    $('#botanical_name').val('');
+    $('#planted_date').val('');
+    $('#data_collection_date').val('');
+    $('#description').val('');
+    $('#height').val('');
+    $('#canopy').val('');
+    $('#girth_1m').val('');
+    clearUploads();    
+}
