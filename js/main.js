@@ -440,7 +440,9 @@ function editSapling() {
         'data_collection_date' : $('#edit_data_collection_date').val(),
         'group' : $('#edit_group').val(),
         'description' : $('#edit_description').val()
-    }
+    };
+    if ($('#edit_height').val()) payload['height'] = parseFloat($('#edit_height').val());
+
     $('#editSapling_status').html(`Saving...`);
     $.ajax({
         url : `${APIpath}/editSapling`,
