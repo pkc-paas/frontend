@@ -126,11 +126,11 @@ function uploadSapling() {
     let planted_date = $('#planted_date').val();
     let data_collection_date = $('#data_collection_date').val();
     let description = $('#description').val();
-    let height = $('#height').val();
+    let height = $('#height').val().length ? parseFloat($('#height').val()) : null;
     // let canopy = $('#canopy').val();
     // let girth_1m = $('#girth_1m').val();
 
-    if(!name.length || !data_collection_date.length) {
+    if(!name.length || !data_collection_date.length || !group.length || !local_name.length || !botanical_name.length || !planted_date.length || !name.length) {
         alert('all essential fields not filled');
         return;
     }
@@ -139,12 +139,12 @@ function uploadSapling() {
     formData.append('lon', locationHolder[1] );
     formData.append('name', name );
     formData.append('group', group );
-    formData.append('local_name', local_name );
-    formData.append('botanical_name', botanical_name );
-    formData.append('planted_date', planted_date );
+    if(local_name) formData.append('local_name', local_name );
+    if(botanical_name) formData.append('botanical_name', botanical_name );
+    if(planted_date) formData.append('planted_date', planted_date );
     formData.append('data_collection_date', data_collection_date );
-    formData.append('description', description );
-    formData.append('height', height );
+    if(description) formData.append('description', description );
+    if(height) formData.append('height', height );
     // formData.append('canopy', canopy );
     // formData.append('girth_1m', girth_1m );
 
