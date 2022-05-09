@@ -4,7 +4,7 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>ConnecTree Observations</title>
+<title>ConnecTree Upload Observation</title>
 <link href="lib/leaflet.css" orig="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" rel="stylesheet">
 <link href="lib/jquery-ui.css" rel="stylesheet">
 <link href="lib/tabulator.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="lib/chosen/chosen.min.css">
 <link href='lib/leaflet.fullscreen.css' alt='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
 <link rel="stylesheet" href="lib/easy-button.css">
-<link href="lib/selectize.bootstrap4.min.css" rel="stylesheet" />
+<link href="lib/flatpickr.min.css" rel="stylesheet">
 
 <link href="js/common.css" rel="stylesheet">
 
@@ -33,34 +33,26 @@
 <script src="lib/Leaflet.Control.Custom.js"></script>
 <script src="lib/leaflet-providers.js"></script>
 <script src="lib/leaflet-hash.min.js"></script>
-<!-- <script src="lib/flatpickr.js"></script> -->
+<script src="lib/flatpickr.js"></script>
 <script src="lib/Leaflet.Control.Custom.js"></script>
 <script src="lib/leaflet-lasso.min.js"></script>
 <script src="lib/easy-button.js"></script>
-<script src="lib/selectize.min.js"></script>
+<script src="lib/geolet.js"></script>
 
-<style>
-body {
-  font-size: 1em;
+</head>
+<style type="text/css">
+.container-fluid {
+  min-height: 85vh;
 }
+
 #map {
-height: 85vh;
-width: 100%;
-}
-
-input[type=checkbox] {
- width: 15px; height: 15px;
- /*-webkit-border-radius: 22px; -moz-border-radius: 22px; border-radius: 22px;*/
-  border: 1px solid #000;
-  vertical-align: middle; 
-}
-
-.tab-pane {
-  padding-top: 20px;
+  /*visibility: hidden;*/
+  height: 400px;
+  width: 100%;
+  margin: 0;
 }
 
 </style>
-</head>
 <body>
 </body>
 </html>
@@ -68,32 +60,54 @@ input[type=checkbox] {
 <div class="headerOffset"></div>
 
 <div class="container-fluid">
+<h2>Upload an Observation <span id="saplingTitle"></span></h2>
 <div class="row">
-  <div class="col-md-8">
-    <div class="row">
-      <div class="col-md-6">
-        <h4>Observations</h4>
-      </div>
+  <div class="col-md-5">
+    <form class="form-horizontal">
+
+      <div class='form-group form-group-lg'><div class='col-md-12'>
+      Sapling Info <a class="badge badge-secondary" data-toggle="collapse" href="#saplingInfo" role="button" aria-expanded="false" aria-controls="collapseStopsTable">Show/Hide</a><br>
+      <div class="collapse hide" id="saplingInfo"></div>
+      </div></div>
+
+    
+      <!-- <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='name'>Sapling Info</label><div class='col-md-12' id="saplingInfo"></div></div> -->
       
-      <div class="col-md-6">
-        <select id="sapling"></select>
+      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='observation_date'>Observation date<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='observation_date'></div></div>
+
+
+      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='growth_status'>Growth Status</label><div class='col-md-12'><input class='form-control' type='text' id='growth_status'></div></div>
+      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='health_status'>Health Status</label><div class='col-md-12'><input class='form-control' type='text' id='health_status'></div></div>
+      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='observation'>Observation<span class="red">*</span></label><div class='col-md-12'><textarea class='form-control' type='text' id='observation'></textarea></div></div>
+    </form>
+
+
+  </div>
+  <div class="col-md-7">
+    <div class="row">
+      <div class="col-sm-10">
+        <h3>Upload photos</h3> <input type="file" id="mypic" accept="image/*" multiple><br>
+        <!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
+      </div>
+      <div class="col-sm-2">
+        <p align="right"><button class="btn btn-sm btn-danger" onclick="clearUploads()">Clear</button></p>
       </div>
     </div>
-    <div id="tabulator1"></div>
-    <p align="right" id="obsPaginationHolder"></p>
-      
-  </div>
-    
-  <div class="col-md-4">
-    <div id="map"></div>
+    <div id="uploadTray" class="sapling_images"></div>
   </div>
 </div>
 
 
+
+<div class="container">
+  <button class="btn ctblue btn-lg btn-block" onclick="postObservation()"><b>Submit</b></button>
+  <p align="center"><span id="postObservationStatus">&nbsp;</span></p>
+
 </div>
+<br><br><br><br>
 <div id="footer"></div>
 
 <script src="js/common.js"></script>
-<script src="js/observations.js"></script>
+<script src="js/observation_upload.js"></script>
 </body>
 </html>

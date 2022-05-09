@@ -10,7 +10,7 @@ let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
 let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
 if (window.location.host =="localhost:8000") { 
     APIpath = 'http://localhost:5400/API';
-    staticPath = 'http://localhost:5400/static'
+    staticPath = 'http://localhost:5400/static';
 }
 
 // let photoPath = `${APIpath}/getPhoto?f=`;
@@ -164,7 +164,7 @@ function loggedInCheck() {
         contentType: 'application/json',
         headers: { "x-access-key": token },
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             if(returndata.username) {
                 $('#account_info').html(`${returndata.username} - ${returndata.role}`);
                 $('#login_logout').html(`Logout`);
@@ -179,6 +179,8 @@ function loggedInCheck() {
                 if(['admin','moderator','saplings_admin','saplings_entry'].includes(returndata.role)) {
                     $('#menuItems').append(`<li class="nav-item">
                         <a class="nav-link" href="sapling_upload.html">Upload Saplings</a>
+                        <a class="nav-link" href="observations.html">Observations</a>
+
                     </li>`);
                 }
 
@@ -238,3 +240,18 @@ function displayAsImage(file, destId) {
     var uploadTray = document.querySelector(`#${destId}`);
     uploadTray.appendChild(img);
   }
+
+
+// URL params
+function loadURLParams(URLParams) {
+    // URL parameters. from https://stackoverflow.com/a/2405540/4355695
+    var query = window.location.search.substring(1).split("&");
+    for (var i = 0, max = query.length; i < max; i++)
+    {
+        if (query[i] === "") // check for trailing & with no param
+            continue;
+        var param = query[i].split("=");
+        URLParams[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+        // this gets stored to global json variable URLParams
+    }
+}
