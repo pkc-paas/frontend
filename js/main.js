@@ -54,7 +54,7 @@ var circleMarker1 = {
     fillOpacity: 0.8
 };
 
-// var hash = new L.Hash(map);
+var hash = new L.Hash(map);
 
 // Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
 var crosshairIcon = L.icon({
@@ -182,7 +182,7 @@ function processData(returndata) {
             ${r.adopted_name ? `<br>Adopted name: ${r.adopted_name}` : ''}</h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
-                content1 += `<div class="card">
+                content1 += `<div class="card card1">
                 <a href="${photoPath}${p}" data-toggle="lightbox">
                 <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
                 </div>`;
@@ -205,7 +205,7 @@ function processData(returndata) {
                 </span><br>
                 Description: <span class="s_description">${r.description || ''}</span><br>
                 </p>
-                <p><button class="btn" onclick="loadObservations()">Load Observations</button></p>`;
+                <p><button class="btn" onclick="loadObservations()">Load Observations</button> <span id="observations_summary"></span></p>`;
             
             
             let actionHTML='';
@@ -222,6 +222,7 @@ function processData(returndata) {
             } else if (['admin', 'moderator', 'saplings_admin'].includes(globalRole)) {
                 actionHTML += `<h4>Action</h4>
                     <button class="btn btn-warning bottomGap btn-md btn-block" onclick="editSaplingStart('${r.id}')">Edit</button>
+                    <a class="btn btn-secondary bottomGap btn-md btn-block" href="observation_upload.html?S=${r.id}" target="_blank">Post Observation</a>
                     <span id="actionStatus"></span>
                 `;
             }
@@ -273,7 +274,7 @@ function processData(returndata) {
             content1 += `<h4><span class="s_name">${r.name || ''}</span> <small>(id: ${r.id})</small></h4>
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
-                content1 += `<div class="card">
+                content1 += `<div class="card card1">
                 <a href="${photoPath}${p}" data-toggle="lightbox">
                 <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
                 </div>`;
@@ -481,7 +482,25 @@ function loadObservations() {
         contentType: 'application/json',
         success : function(returndata) {
             console.log(returndata);
-            $('#loadObservations_status').html(`Loaded.`);
+            $('#observations_summary').html(`${returndata.observations.length} Observations recorded.`);
+
+            
+            let content = ``;
+            returndata.observations.forEach(o => {
+                content += `
+                <div class="col-md-2">
+                  <img src="${obsThumbsPath}${o.photo_id.split(',')[0]}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">${o.observation_date}</h5>
+                    <p class="card-text">Growth status: ${o.growth_status}<br>
+                    Health status: ${o.heath_status}<br>
+                    Description: ${o.description}</p>
+                    
+                  </div>
+                </div>
+                `;
+            });
+            $('#observations_container').html(content);
 
         },
         error: function(jqXHR, exception) {
