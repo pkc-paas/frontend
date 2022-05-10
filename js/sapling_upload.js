@@ -118,6 +118,12 @@ function uploadSapling() {
         alert("Please attach at least one photo");
         return;
     }
+
+    if(formData.getAll('uploadFiles').length > maxUploadCount) {
+        alert(`Over ${maxUploadCount} photos not allowed in one submission, please remove some.`);
+        return;
+    }
+
     // form fields validation
     let name = $('#name').val();
     let group = $('#group').val();

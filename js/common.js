@@ -6,6 +6,8 @@ const STARTZOOM = 14;
 const crosshairPath = 'lib/focus-black.svg';
 const crosshairSize = 50;
 
+const maxUploadCount = 10;
+
 let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
 let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
 if (window.location.host =="localhost:8000") { 
