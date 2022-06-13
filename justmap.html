@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>ConnecTree Home</title>
+
+<link href="lib/leaflet.css" rel="stylesheet">
+<link href="lib/jquery-ui.css" rel="stylesheet">
+<link href="lib/tabulator.min.css" rel="stylesheet">
+<link href="lib/bootstrap.v4.0.0.min.css" rel="stylesheet">
+<link href="lib/easy-button.css" rel="stylesheet">
+<link rel="stylesheet" href="lib/chosen/chosen.min.css">
+<link href="lib/leaflet.fullscreen.css" rel="stylesheet">
+<link href="lib/ekko-lightbox.css" rel="stylesheet">
+<link rel="stylesheet" href="lib/leaflet-search.css" />
+
+<link href="js/common.css" rel="stylesheet">
+
+<!-- Put the CSSs first and JSs next -->
+
+<script src="lib/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="lib/jquery-ui.min.js" type="text/javascript"></script>
+<script src="lib/leaflet.js"></script>
+<script src="lib/easy-button.js"  type="text/javascript"></script>
+<script src="lib/tabulator.min.js" type="text/javascript"></script>
+<script src="lib/popper.v1.12.9.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap.v4.0.0.min.js" type="text/javascript"></script>
+<script src="lib/papaparse.min.js" type="text/javascript"></script>
+<script src="lib/leaflet-ant-path.js"></script>
+<script src="lib/chosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script src="lib/Leaflet.fullscreen.min.js" type="text/javascript"></script>
+<script src="lib/Leaflet.Control.Custom.js"></script>
+<script src="lib/leaflet-providers.js"></script>
+<script src="lib/leaflet-hash.min.js"></script>
+<!-- <script src="lib/flatpickr.js"></script> -->
+<script src="lib/Leaflet.Control.Custom.js"></script>
+<script src="lib/ekko-lightbox.min.js" type="text/javascript"></script>
+<script src="lib/leaflet-search.js"></script>
+
+<style>
+body {
+    font-size: 1em;
+}
+#map {
+height: 95vh;
+width: 100%;
+}
+
+</style>
+
+</head>
+<body>
+<div id="map"></div>
+<input id="opacity" value="100" type="number" class="narrow1"> <button onclick="setOpacity()">Set Background Opacity</button> (0 to 100)
+
+</body>
+
+<script src="js/common.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+function setOpacity() {
+    let o1 = parseInt($('#opacity').val());
+    let o2 = o1 / 100;
+
+    if(o2 < 0 || o2 > 1) {
+        alert("Invalid opacity value, please input a number between 1 and 100");
+        return;
+    }
+
+    // set all bg layers
+    cartoPositron.setOpacity(o2);
+    OSM.setOpacity(o2);
+    gStreets.setOpacity(o2);
+    gHybrid.setOpacity(o2);
+    esriWorld.setOpacity(o2);
+    soi.setOpacity(o2);
+
+}
+</script>
+</body>
+</html>
+

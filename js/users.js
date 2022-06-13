@@ -20,6 +20,7 @@ var usersTable = new Tabulator("#usersTable", {
         {title:'full name', field:'fullname', headerFilter:'input', width:150},
         {title:'role', field:'role', headerFilter:'input', width:100},
         {title:'email', field:'email', headerFilter:'input', width:200},
+        {title:'status', field:'status', headerFilter:'input', width:100},
         {title:'created by', field:'created_by', headerFilter:'input', width:100},
         {title:'created on', field:'created_on', headerFilter:'input', width:200},
         {title:'pw change date', field:'last_pw_change', headerFilter:'input', width:150},

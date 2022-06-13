@@ -12,6 +12,7 @@
 <script src="lib/jquery-ui.min.js" type="text/javascript"></script>
 <script src="lib/popper.v1.12.9.min.js" type="text/javascript"></script>
 <script src="lib/bootstrap.v4.0.0.min.js" type="text/javascript"></script>
+<link href="js/common.css" rel="stylesheet">
 
 <style>
 body {
@@ -22,17 +23,31 @@ body {
 </head>
 <body>
 <div id="topMenu"></div>
-    <h4>Sign Up</h4>
+<div class="headerOffset"></div>
+<div class="container">
+    <h4>Sign Up </h4>
     <!-- check out https://getbootstrap.com/docs/4.0/components/forms/?#custom-forms -->
-    <p><input placeholder="Name" id="name"></p>
-    <p><input placeholder="Username" id="username"></p>
-    <p><input placeholder="Email" id="email"></p>
-    <p><input placeholder="Password" id="pw" type="password"></p>
-    <p><input placeholder="Confirm Password" id="pw_confirm" type="password"> <span id="pwcheck"></span></p>
-    <p><input placeholder="Referral code" id="referral_code"></p>
+    <p>Full Name <input placeholder="Name" id="name" class="form-control bottomGap"></p>
+    <p>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>Choose a unique username, no spaces or special chars except dot or underscore <span id="username_checker"></span></small><input placeholder="Username" id="username" class="form-control bottomGap"></p>
+    <p>Email <input placeholder="Email" id="email" class="form-control bottomGap"></p>
+    <p>Password<input placeholder="Password" id="pw" type="password" class="form-control bottomGap"></p>
+    <p>Confirm Password<input placeholder="Confirm Password" id="pw_confirm" type="password" class="form-control bottomGap"> <span id="pwcheck"></span></p>
+    <p>Role <select id="role" class="form-control">
+        <option value="saplings_entry">Saplings Uploader</option>
+        <option value="sponsor">Sponsor</option>
+    </select>
+    <p>Referral Code <input placeholder="Referral code" id="referral" class="form-control"><small>If you're signing up as part of a ConnecTree event or campaign, please use the referral code shared by the organiser to fast-track your signup process</small></p>
 
 
-    <p><button onclick="login()" type="submit">Submit</button></p>  
+    <p><button onclick="signup()" type="submit" class="btn btn-primary btn-lg btn-block">Submit</button></p>
+    <p align="center"><span id="signupStatus">&nbsp;</span></p>
+
+    <p>Note: By Clicking Submit, you agree to the Terms and Conditions of ConnecTree</p>
+<br><br>
+</div>
+
+
+<div id="footer"></div>
 
 <script src="js/common.js"></script>
 <script src="js/login.js"></script>
