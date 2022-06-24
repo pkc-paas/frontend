@@ -62,18 +62,20 @@ var circleMarker1 = {
 var hash = new L.Hash(map);
 
 // Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
-var crosshairIcon = L.icon({
-    iconUrl: crosshairPath,
-    iconSize:     [crosshairSize, crosshairSize], // size of the icon
-    iconAnchor:   [crosshairSize/2, crosshairSize/2], // point of the icon which will correspond to marker's location
-});
-crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, interactive:false});
-crosshair.addTo(map);
-// Move the crosshair to the center of the map when the user pans
-map.on('move', function(e) {
-    var currentLocation = map.getCenter();
-    crosshair.setLatLng(currentLocation);
-});
+if(window.location.pathname.indexOf('justmap.html') === -1) {
+    var crosshairIcon = L.icon({
+        iconUrl: crosshairPath,
+        iconSize:     [crosshairSize, crosshairSize], // size of the icon
+        iconAnchor:   [crosshairSize/2, crosshairSize/2], // point of the icon which will correspond to marker's location
+    });
+    crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, interactive:false});
+    crosshair.addTo(map);
+    // Move the crosshair to the center of the map when the user pans
+    map.on('move', function(e) {
+        var currentLocation = map.getCenter();
+        crosshair.setLatLng(currentLocation);
+    });
+}
 
 if(window.location.pathname.indexOf('justmap.html') === -1) {
     L.control.search({
