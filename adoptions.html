@@ -32,7 +32,6 @@
 <script src="lib/leaflet-search.min.js"></script>
 <script src="lib/selectize.min.js"></script>
 <script src="lib/leaflet-lasso.min.js"></script>
-
 <script src="lib/geolet.js"></script>
 <script src="lib/flatpickr.js"></script>
 
@@ -62,15 +61,17 @@ input[type=checkbox] {
 </body>
 </html>
 <div id="topMenu"></div>
-<div class="headerOffset"></div>
 
 <div class="container-fluid">
 <div class="row">
   <div class="col-md-8">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Requests</a>
-        <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Adopted</a>
+        <button class="nav-link active" id="nav-tab1-tab" data-bs-toggle="tab" data-bs-target="#nav-tab1" type="button" role="tab" aria-controls="nav-tab1" aria-selected="true">Requests</button>
+        <button class="nav-link" id="nav-tab2-tab" data-bs-toggle="tab" data-bs-target="#nav-tab2" type="button" role="tab" aria-controls="nav-tab2" aria-selected="false">Adopted</button>
+    
+        <!-- <a class="nav-item nav-link active" id="nav-tab1-tab" data-toggle="tab" href="#nav-tab1" role="tab" aria-controls="nav-tab1" aria-selected="true">Requests</a>
+        <a class="nav-item nav-link" id="nav-tab2-tab" data-toggle="tab" href="#nav-tab2" role="tab" aria-controls="nav-tab2" aria-selected="false">Adopted</a> -->
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -109,6 +110,7 @@ input[type=checkbox] {
 
 
 </div>
+<hr>
 <div id="footer"></div>
 
 <script src="js/common.js"></script>
