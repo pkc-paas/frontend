@@ -3,7 +3,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Sign Up</title>
+<title>ConnecTree Login</title>
 
 <link href="lib/leaflet.css" rel="stylesheet">
 <link href="lib/tabulator.min.css" rel="stylesheet">
@@ -42,30 +42,29 @@ body {
 </head>
 <body>
 <div id="topMenu"></div>
-<div class="headerOffset"></div>
-<div class="container">
-    <h3>Join Us!</h3>
-    <!-- check out https://getbootstrap.com/docs/4.0/components/forms/?#custom-forms -->
-    <p>Full Name <input placeholder="Name" id="name" class="form-control bottomGap"></p>
-    <p>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>Choose a unique username, no spaces or special chars except dot or underscore <span id="username_checker"></span></small><input placeholder="Username" id="username" class="form-control bottomGap"></p>
-    <p>Email <input placeholder="Email" id="email" class="form-control bottomGap"></p>
-    <p>Password<input placeholder="Password" id="pw" type="password" class="form-control bottomGap"></p>
-    <p>Confirm Password<input placeholder="Confirm Password" id="pw_confirm" type="password" class="form-control bottomGap"> <span id="pwcheck"></span></p>
-    <p>Role <select id="role" class="form-control">
-        <option value="saplings_entry">Saplings Uploader</option>
-        <option value="sponsor">Sponsor</option>
-    </select>
-    <p>Referral Code <input placeholder="Referral code" id="referral" class="form-control"><small><i>If you're signing up as part of a ConnecTree event or campaign, please use the referral code shared by the organiser to fast-track your signup process</i></small></p>
-    <br>
-    <div class="d-grid gap-2">
-        <button onclick="signup()" type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+<div class="container topSpace_40">
+    <div class="row align-items-center">
+        <div class="col-md-6 landing-left">
+            <img src="assets/connect_tree_logo.png" class="landing-img">
+        </div>
+        <div class="col-md-6 landing-right">
+            <h3>ConnecTree</h3>
+            <p><input placeholder="username" id="username" class="form-control bottomGap"></p>
+            <p><input placeholder="password" id="pw" type="password" class="form-control bottomGap"></p>
+            <div class="d-grid gap-2">
+                <button onclick="login()" type="submit" class="btn btn-primary btn-lg">Login</button>
+            </div>
+            <p align="center"><span id="loginStatus">&nbsp;</span></p>
+            <!-- <p align="center"><a href="reset_password.html">Forgot Password</a></p> -->
+            <div class="d-grid gap-2">
+                <a href="signup.html" class="btn btn-success btn-lg btn-block">Sign Up</a>
+            </div>
+        </div>
     </div>
-    <p align="center"><span id="signupStatus">&nbsp;</span></p>
 
-    <p>Note: By Clicking Signup, you agree to the Terms and Conditions of ConnecTree</p>
-<br><br>
+
 </div>
-
+<br><br>
 <br><hr>
 <div id="footer"></div>
 
