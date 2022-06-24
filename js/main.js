@@ -116,10 +116,10 @@ if(window.location.pathname.indexOf('mainmap.html') != -1) {
 $(document).ready(function () {
     loadMap();
 
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-        event.preventDefault();
-        $(this).ekkoLightbox();
-    });
+    // $(document).on('click', '[data-toggle="lightbox" target="_blank"]', function(event) {
+    //     event.preventDefault();
+    //     // $(this).ekkoLightbox();
+    // });
 
     // $("img").unveil(); // http://luis-almeida.github.io/unveil/
 
@@ -191,7 +191,7 @@ function processData(returndata) {
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card card1">
-                <a href="${photoPath}${p}" data-toggle="lightbox">
+                <a href="${photoPath}${p}" data-toggle="lightbox" target="_blank">
                 <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
                 </div>`;
             });
@@ -283,7 +283,7 @@ function processData(returndata) {
                 <div class="sapling_images">`;
             r.first_photos.forEach(p => {
                 content1 += `<div class="card card1">
-                <a href="${photoPath}${p}" data-toggle="lightbox">
+                <a href="${photoPath}${p}" data-toggle="lightbox" target="_blank">
                 <img class="imgPreview" src="${saplingThumbPath}${p}"></a>
                 </div>`;
             });
@@ -521,7 +521,7 @@ function loadObservations() {
 function uploadOrLogin() {
     let url = 'login.html';
     if(['admin', 'moderator', 'saplings_admin', 'saplings_entry'].includes(globalRole)) {
-        url = `saplings_upload.html`;
+        url = `sapling_upload.html`;
     }
-    var win = window.open(url);
+    window.location = url;
 }
