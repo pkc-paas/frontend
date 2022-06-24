@@ -30,7 +30,6 @@ var map = new L.Map('map', {
     maxZoom: 20,
 });
 $('.leaflet-container').css('cursor','crosshair'); // from https://stackoverflow.com/a/28724847/4355695 Changing mouse cursor to crosshairs
-L.control.scale({metric:true, imperial:false}).addTo(map);
 
 // SVG renderer
 var myRenderer = L.canvas({ padding: 0.5 });
@@ -45,7 +44,6 @@ var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, auto
 // https://github.com/Leaflet/Leaflet.fullscreen
 map.addControl(new L.Control.Fullscreen({position:'topright'}));
 
-
 plantationLayer.addTo(map);
 unconfirmedLayer.addTo(map);
 
@@ -59,10 +57,12 @@ var circleMarker1 = {
     fillOpacity: 0.8
 };
 
-var hash = new L.Hash(map);
+// MAP ELEMENTS TO ADD ONLY IF MAIN MAP PAGE
+if(window.location.pathname.indexOf('mainmap.html') != -1) {
+    L.control.scale({metric:true, imperial:false}).addTo(map);
+    var hash = new L.Hash(map);
 
-// Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
-if(window.location.pathname.indexOf('justmap.html') === -1) {
+    // Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
     var crosshairIcon = L.icon({
         iconUrl: crosshairPath,
         iconSize:     [crosshairSize, crosshairSize], // size of the icon
@@ -75,9 +75,8 @@ if(window.location.pathname.indexOf('justmap.html') === -1) {
         var currentLocation = map.getCenter();
         crosshair.setLatLng(currentLocation);
     });
-}
 
-if(window.location.pathname.indexOf('justmap.html') === -1) {
+
     L.control.search({
         layer: plantationLayer,
         initial: false,
@@ -90,9 +89,7 @@ if(window.location.pathname.indexOf('justmap.html') === -1) {
         textPlaceholder: 'Search by name'
     })
     .addTo(map);
-}
 
-if(window.location.pathname.indexOf('justmap.html') === -1) {
     L.control.custom({
         position: 'bottomleft',
         content: `<div class="legend" id="legendContent">
@@ -519,4 +516,12 @@ function loadObservations() {
             $('#loadObservations_status').html(`Error: ${jqXHR.responseText}`);
         }
     });  
+}
+
+function uploadOrLogin() {
+    let url = 'login.html';
+    if(['admin', 'moderator', 'saplings_admin', 'saplings_entry'].includes(globalRole)) {
+        url = `saplings_upload.html`;
+    }
+    var win = window.open(url);
 }

@@ -27,6 +27,38 @@
     padding-top: 10px;
 }
 
+.topSpace_10 {
+    padding-top: 10px;
+}
+
+.topSpace_20 {
+    padding-top: 20px;
+}
+
+.topSpace_30 {
+    padding-top: 30px;
+}
+
+.topSpace_40 {
+    padding-top: 40px;
+}
+
+.topSpace_60 {
+    padding-top: 60px;
+}
+
+.bottomSpace_40 {
+    padding-bottom: 40px;
+}
+
+.bottomSpace_60 {
+    padding-bottom: 60px;
+}
+
+.bottomSpace_80 {
+    padding-bottom: 80px;
+}
+
 .headerOffset {
     margin-top: 70px;
 }
@@ -122,60 +154,7 @@
 }
 
 
-/*Top Menu */
-.navbar {
-    /*padding: 0 1rem;*/
-    padding-top: 0rem;
-    padding-bottom: 0rem;
-    background-color: #06DD66;
-}
 
-/* different styles in mobile screens */
-@media (max-width: 1200px) {
-    .navbar {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-}
-
-.navbar-dark .navbar-nav .nav-link, .dropdown-item {
-    color: white;
-}
-
-li.nav-item {
-    height: 3.5rem;
-    display: table; 
-}
-li.nav-item > a {
-    height: 100%;
-    vertical-align: middle;
-    display: table-cell;
-    /*color: #fff!important;*/
-    /*font-weight: 200;*/
-    transition: .3s;
-}
-
-a.dropdown-item {
-    height: 100%;
-    vertical-align: middle;
-    /*display: table-cell;*/
-    /*color: #fff!important;*/
-    /*font-weight: 200;*/
-    transition: .3s;
-}
-li.nav-item > a:hover, .dropdown-item:hover {
-    height: 100%;
-    background-color: yellow;
-    color: black!important;
-    transition: .3s;
-}
-
-/* menu dropdown / secondary menu items */
-
-.dropdown-menu {
-    background-color: #06DD66;
-
-}
 
 /*a.dropdown-item {
     height: 100%;
@@ -221,3 +200,90 @@ li.nav-item > a:hover, .dropdown-item:hover {
     color: white;
 }
 
+
+.greenbg {
+    background-color: #69c316;
+}
+
+.noColGaps {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.graybg {
+    background-color: #f2f5f5;
+}
+
+.greenRespite {
+    background-image: url("../assets/Connectree_green banner.jpg");
+    height: 353px;
+    background-position: center center;
+}
+
+.navMenu > div {
+    background-color: white;
+}
+
+.navMenu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: white;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 2%), 0 0 0 -1px rgb(0 0 0 / 12%), 0 1px 1px 0 rgb(0 0 0 / 20%);
+}
+
+.nav-link {
+    color: black;
+}
+
+.getStarted {
+
+}
+
+.getStarted:hover {
+    color: white;
+}
+
+.navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.bannerText {
+    width:  100%;
+    margin-top: 2em;
+    margin-right: 100px;
+}
+
+.gradient1 {
+    /* from https://cssgradient.io/ */
+    background: rgb(105,195,22);
+    background: linear-gradient(90deg, rgba(105,195,22,1) 0%, rgba(94,208,205,1) 26%, rgba(72,170,216,1) 100%);
+}
+
+.gradLine_10 {
+    height: 10px;
+    width: 100%;
+}
+
+.gradLine_20 {
+    height: 20px;
+    width: 100%;
+}
+
+.homeSlider1 {
+    background-image: url("../assets/Balewadi_data.png");
+    height: 400px;
+    background-position: center center;    
+}
+
+.homeSlider2 {
+    background-image: url("../assets/Baner_data.png");
+    height: 400px;
+    background-position: center center;    
+}
+
+.homeSlider3 {
+    background-image: url("../assets/Balewadi_data.png");
+    height: 400px;
+    background-position: center center;    
+}
