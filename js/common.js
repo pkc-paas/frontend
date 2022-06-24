@@ -100,7 +100,7 @@ function topMenu() {
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
             <li><a class="dropdown-item" href="projects-aundh.html">Aundh</a></li>
             <li><a class="dropdown-item" href="projects-baner.html">Baner</a></li>
-            <li><a class="dropdown-item" href="projects-balewadi">Balewadi</a></li>
+            <li><a class="dropdown-item" href="projects-balewadi.html">Balewadi</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link btn btn-secondary greenbg getStarted text-light" href="#">Login / Signup</a></li>
