@@ -241,10 +241,6 @@ function loggedInCheck() {
                     `);
                 }
 
-                if(['admin'].includes(returndata.role)) {
-                    $('#menu_plantnAdopt').append(`<li><a class="dropdown-item" href="users.html">Manage Users</a></li>`);
-                }
-
                 // userMenu section
                 $('#userMenu').addClass('dropdown');
                 let content = `<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -252,10 +248,14 @@ function loggedInCheck() {
                 </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">`;
                 
-                content += `<li><a class="dropdown-item" href="#"><span class="oi oi-bookmark"></span> ${globalRole}</a></li>
-                <li><a class="dropdown-item" href="#" onclick="logOutOrIn()">Sign Out</a></li>
-                `;
-                // 
+                content += `<li title="role"><a class="dropdown-item" href="#"><span class="oi oi-bookmark"></span> &nbsp; ${globalRole}</a></li>`;
+                
+                if(['admin'].includes(returndata.role)) {
+                    content += `<li><a class="dropdown-item" href="users.html">Manage Users</a></li>`;
+                }
+
+                content += `<li><a class="dropdown-item" href="#" onclick="logOutOrIn()">Sign Out</a></li>`;
+                
                 content += `</ul>`;
                 $('#userMenu').html(content);
 
