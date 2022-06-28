@@ -29,7 +29,7 @@ function login() {
             $('#account_info').html(`${payload.username} - ${payload.role}`);
             $('#loginStatus').html(`Logged in, taking you to home page..`);
             setTimeout(function () {
-                window.location.href = "home.html";
+                window.location.href = "index.html";
             }, 500);
         },
         error: function(jqXHR, exception) {

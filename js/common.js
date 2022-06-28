@@ -103,7 +103,7 @@ function topMenu() {
             <li><a class="dropdown-item" href="projects-balewadi.html">Balewadi</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link btn btn-secondary greenbg getStarted text-light" href="login.html">Login / Signup</a></li>
+        <li class="nav-item" id="userMenu"><a class="nav-link btn btn-secondary greenbg getStarted text-light" href="login.html">Login / Signup</a></li>
       </ul>
     </div>
   </div>
@@ -229,6 +229,8 @@ function loggedInCheck() {
                 globalLoggedIn = true;
                 globalRole = returndata.role;
                 globalUser = returndata.username;
+
+                // plant and adopt section
                 if(['admin','moderator'].includes(returndata.role)) {
                     $('#menu_plantnAdopt').append(`<li><a class="dropdown-item" href="adoptions.html">Adoptions</a></li>`);
                 }
@@ -242,6 +244,21 @@ function loggedInCheck() {
                 if(['admin'].includes(returndata.role)) {
                     $('#menu_plantnAdopt').append(`<li><a class="dropdown-item" href="users.html">Manage Users</a></li>`);
                 }
+
+                // userMenu section
+                $('#userMenu').addClass('dropdown');
+                let content = `<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="oi oi-person"></span> ${globalUser}
+                </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">`;
+                
+                content += `<li><a class="dropdown-item" href="#"><span class="oi oi-bookmark"></span> ${globalRole}</a></li>
+                <li><a class="dropdown-item" href="#" onclick="logOutOrIn()">Sign Out</a></li>
+                `;
+                // 
+                content += `</ul>`;
+                $('#userMenu').html(content);
+
             } else {
                 // $('#account_info').html(`Guest`);
                 globalLoggedIn = false;
