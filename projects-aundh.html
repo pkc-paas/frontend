@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>ConnecTree | Projects</title>
+
+<link href="lib/leaflet.css" rel="stylesheet">
+<link href="lib/tabulator.min.css" rel="stylesheet">
+<link href="lib/bootstrap.min.css" rel="stylesheet">
+<link href="lib/easy-button.css" rel="stylesheet" >
+<link href="lib/leaflet.fullscreen.css" rel="stylesheet" />
+<link href="lib/leaflet.contextmenu.min.css" rel="stylesheet">
+<link href="lib/leaflet-search.css" rel="stylesheet">
+<link href="lib/selectize.bootstrap5.min.css" rel="stylesheet" />
+<link href="lib/open-iconic-bootstrap.min.css" rel="stylesheet" />
+<link href="js/common.css" rel="stylesheet">
+
+<script src="lib/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="lib/leaflet.js"></script>
+<script src="lib/easy-button.js"></script>
+<script src="lib/bootstrap.bundle.min.js"></script>
+<script src="lib/tabulator.min.js" type="text/javascript"></script>
+<script src="lib/papaparse.min.js" type="text/javascript"></script>
+<script src="lib/leaflet-ant-path.js"></script>
+<script src="lib/Leaflet.fullscreen.min.js"></script>
+<script src="lib/Leaflet.Control.Custom.js"></script>
+<script src="lib/leaflet-providers.js"></script>
+<script src="lib/leaflet-hash.min.js"></script>
+<script src="lib/leaflet.contextmenu.min.js"></script>
+<script src="lib/leaflet-search.min.js"></script>
+<script src="lib/selectize.min.js"></script>
+<script src="lib/leaflet-lasso.min.js"></script>
+
+
+<style>
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+.leaflet-top.leaflet-left {
+  /*margin-left: 20px;*/
+}
+</style>
+</head>
+<body>
+<div id="topMenu"></div>
+
+<!-- CAROUSEL -->
+<div class="row">
+  <div class="col-md-8 noColGaps">
+    <div id="map"></div>
+  </div>
+  <div class="col-md-4 greenbg d-flex align-items-stretch">
+    <div class="align-self-center bannerText">
+      <p class="text-light fs-6 fw-bold">Plantations in Aundh</p>
+      <br>
+      <p class="text-light"><a class="btn btn-light btn-md" href="mainmap.html#16/18.5641/73.8084">See All >></a></p>
+    </div>
+  </div>
+</div>
+<!-- CONTENT -->
+<div class="graybg">
+<div class="container topSpace_40 bottomSpace_40">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="assets/Connectree_aundh.jpg">
+    </div>
+    <div class="col-md-4">
+      <h4>Aundh Plantation</h4>
+      <p>Where: Siddharth Heights<br>
+      When: 7th April 2022 <br>
+      Plantation partner: Pune Smart City outreach<br>
+      Outreach partner: CEE India<br>
+      How many saplings: 50<br>
+      Which species: Mango, Saptaparni, Subabhul<br>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <p>Volulnteers Involved</p>
+      <p>Total Trees Planted</p>
+      <p>Species Planted</p>
+      <br>
+      <br>
+      <p><button class="btn btn-success" onclick="uploadOrLogin()">Upload Data</button></p>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+<!-- TABS -->
+<div class="topSpace_40 container">
+  <nav>
+    <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-updates-tab" data-bs-toggle="tab" data-bs-target="#nav-updates" type="button" role="tab" aria-controls="nav-updates" aria-selected="true">UPDATES</button>
+      <button class="nav-link" id="nav-aboutspecies-tab" data-bs-toggle="tab" data-bs-target="#nav-aboutspecies" type="button" role="tab" aria-controls="nav-aboutspecies" aria-selected="false">ABOUT SPECIES</button>
+      <button class="nav-link" id="nav-sites-tab" data-bs-toggle="tab" data-bs-target="#nav-sites" type="button" role="tab" aria-controls="nav-sites" aria-selected="false">SITES</button>
+      <button class="nav-link" id="nav-data-tab" data-bs-toggle="tab" data-bs-target="#nav-data" type="button" role="tab" aria-controls="nav-data" aria-selected="false">DATA</button>
+    </div>
+  </nav>
+</div>
+<div class="graybg">
+<div class="topSpace_10 bottomSpace_60 container">
+  <div class="tab-content topSpace_40" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-updates" role="tabpanel" aria-labelledby="nav-updates-tab" tabindex="0">
+      <p>The plantation mainly focused on ecologically appropriate species keeping in mind the urban intrusion around Aundh open meadows.</p>
+      <div class="row topSpace_20">
+        <div class="col-md-4 topSpace_10">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4 topSpace_10">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4 topSpace_10">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-aboutspecies" role="tabpanel" aria-labelledby="nav-aboutspecies-tab" tabindex="0">
+      <p>The focussed species was Saptaparni (Alstonia scholaris) commonly called blackboard tree or devil's tree in English, is an evergreen tropical tree in the family Apocynaceae. It is native to southern China, tropical Asia (mainly Indian subcontinent and Southeast Asia) and Australasia, it is a commonly planted ornamental plant in these areas.</p>
+      <div class="row topSpace_20">
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-sites" role="tabpanel" aria-labelledby="nav-sites-tab" tabindex="0">
+      <p>Oakwood Hills society falls on the foothills of the  Baner tekdi. Given the grazing lands in the neighbourhood, the plantation was focussed on planting saplings where usually the leaves are born on the crown of the trees.</p>
+      <div class="row topSpace_20">
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-data-tab" tabindex="0">
+      <p>100 saplings data was collected. The focussed attributes were GPS location, species name, pictures of leaf and sapling profile, rough height.</p>
+      <div class="row topSpace_20">
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+        <div class="col-md-4">
+          <img src="assets/photos/old-holding-plant1.jpg" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="footer"></div>
+
+<script src="js/common.js"></script>
+<script>
+  STARTLOCATION = [18.5641,73.8084];
+  STARTZOOM = 16;
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
