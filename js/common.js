@@ -11,8 +11,12 @@ const maxUploadCount = 10;
 var STARTLOCATION = [18.57,73.7804];
 var STARTZOOM = 14;
 
-let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
-let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
+// let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
+// let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
+
+let APIpath = 'https://cst.pkc.org.in/paas_backend/API';
+let staticPath = 'https://cst.pkc.org.in/paas_backend/static'
+
 if (window.location.host =="localhost:8000") { 
     APIpath = 'http://localhost:5400/API';
     staticPath = 'http://localhost:5400/static';
