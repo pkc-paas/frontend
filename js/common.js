@@ -332,3 +332,48 @@ function loadURLParams(URLParams) {
     }
 }
 
+
+function handleError(jqXHR, move=true, element=null){
+    console.log(jqXHR.status, jqXHR.responseText);
+    if(jqXHR.status == 401) {
+        if(move == true) {
+            alert("Sorry, you might have got logged out. Taking you to the home page");
+            window.location.href = "index.html";
+            return;
+        } else {
+            if(element) {
+                $(`#${element}`).html("Invalid login");
+                return;
+            }
+            else {
+                alert("Invalid login");
+                return;
+            }
+        }
+    }
+    // if([401,403].includes(jqXHR.status)) {
+    else if(jqXHR.status == 403) {
+        if(move == true) {
+            alert("Sorry, you don't have sufficient permissions. Taking you to the home page");
+            window.location.href = "index.html";
+            return;
+        } else {
+            if(element) {
+                $(`#${element}`).html("Insufficient permissions");
+                return;
+            }
+            else {
+                alert("Insufficient permissions");
+                return;
+            }
+        }
+    } else {
+        if(element) {
+            $(`#${element}`).html(jqXHR.responseText);
+            return;
+        } else {
+            alert(jqXHR.responseText);
+            return;
+        }
+    }
+}

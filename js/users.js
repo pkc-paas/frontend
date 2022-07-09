@@ -56,8 +56,7 @@ function listUsers() {
             $('#tableStatus').html(`Loaded`);
         },
         error: function(jqXHR, exception) {
-            console.log('error:',jqXHR.responseText);
-            $('#tableStatus').html(`Error: ${jqXHR.responseText}`);
+            handleError(jqXHR);
         }
     });
 }
@@ -106,3 +105,37 @@ function createUser() {
     });
 }
 
+
+function approve() {
+    var selected = usersTable.getSelectedData();
+    if(! selected.length) {
+        alert("No users selected");
+        return;
+    }
+    let usersList = [];
+    selected.forEach(u => {
+        usersList.push(u.username);
+    })
+    console.log(usersList);
+    let payload = {
+        "usersList": usersList
+    }
+    $('#tableStatus').html(`Please wait..`);
+    $.ajax({
+        url : `${APIpath}/approveUsers`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        // dataType : 'html',
+        success : function(returndata) {
+            console.log(returndata);
+            $('#tableStatus').html(`${returndata.count} users approved`);
+            listUsers();
+        },
+        error: function(jqXHR, exception) {
+            handleError(jqXHR, element='tableStatus');
+        }
+    });
+}
