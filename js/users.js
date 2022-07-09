@@ -114,9 +114,18 @@ function approve() {
     }
     let usersList = [];
     selected.forEach(u => {
-        usersList.push(u.username);
+        if(u.status == 'APPLIED' || u.status == '' )
+            usersList.push(u.username);
     })
+    if(! usersList.length) {
+        alert("No applied users selected");
+        return;
+    }
+
+    if(!confirm(`Are you sure you want to approve these users: ${usersList.join(', ')}`)) return;
+
     console.log(usersList);
+    
     let payload = {
         "usersList": usersList
     }
@@ -132,6 +141,50 @@ function approve() {
         success : function(returndata) {
             console.log(returndata);
             $('#tableStatus').html(`${returndata.count} users approved`);
+            listUsers();
+        },
+        error: function(jqXHR, exception) {
+            handleError(jqXHR, element='tableStatus');
+        }
+    });
+}
+
+function revert() {
+    var selected = usersTable.getSelectedData();
+    if(! selected.length) {
+        alert("No users selected");
+        return;
+    }
+    let usersList = [];
+    selected.forEach(u => {
+        if(u.status == 'APPROVED' || u.status == '' )
+            usersList.push(u.username);
+    })
+    if(! usersList.length) {
+        alert("No approved users selected");
+        return;
+    }
+    
+    if(!confirm(`Are you sure you want to revert the approval status of these users: ${usersList.join(', ')}`)) return;
+
+    console.log(usersList);
+    
+    let payload = {
+        "usersList": usersList
+    }
+    $('#tableStatus').html(`Please wait..`);
+
+    $.ajax({
+        url : `${APIpath}/revertUsers`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        // dataType : 'html',
+        success : function(returndata) {
+            console.log(returndata);
+            $('#tableStatus').html(`${returndata.count} users reverted to APPLIED status.`);
             listUsers();
         },
         error: function(jqXHR, exception) {

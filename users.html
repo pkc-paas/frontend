@@ -51,14 +51,17 @@ body {
 <h2>Users Management</h2>
 <div id="usersTable"></div>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <p id="tableStatus"></p>
   </div>
-  <div class="col-md-4">
-    <button class="btn btn-sm btn-success" onclick="approve()">Bulk Approve</button> <span id="selectedCount"></span> selected
+  <div class="col-md-3">
+    <button class="btn btn-sm btn-success" onclick="approve()">Approve</button> <span id="selectedCount"></span> selected
   </div>
-  <div class="col-md-4">
-    <p>Delete Selected users <button onclick="deleteUsers()" class="btn btn-sm btn-danger">Delete</button></p>
+  <div class="col-md-3">
+    <button class="btn btn-sm btn-warning" onclick="revert()">Cancel Approvals</button> <span id="revertCount"></span> of selected
+  </div>
+  <div class="col-md-3">
+    <p><button onclick="deleteUsers()" class="btn btn-sm btn-danger">Delete</button> Selected users</p>
   </div>
 </div>
 </div>
