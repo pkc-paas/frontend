@@ -15,14 +15,21 @@ if(lastLoc.split(',').length === 2) {
 
 // #################################
 /* MAP */
-var cartoPositron = L.tileLayer.provider('CartoDB.Positron');
-var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+
+var cartoPositron = L.tileLayer.provider('CartoDB.Positron', {maxNativeZoom:19, maxZoom: 20});
+var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik', {maxNativeZoom:19, maxZoom: 20});
 var gStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
 var gHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
-var esriWorld = L.tileLayer.provider('Esri.WorldImagery');
+var esriWorld = L.tileLayer.provider('Esri.WorldImagery', {maxNativeZoom:19, maxZoom:20});
+var soi = L.tileLayer('https://storage.googleapis.com/soi_data/export/tiles/{z}/{x}/{y}.webp', {
+    maxZoom: 20,
+    maxNativeZoom: 15,
+    attribution: '<a href="https://onlinemaps.surveyofindia.gov.in/FreeMapSpecification.aspx" target="_blank">1:50000 Open Series Maps</a> &copy; <a href="https://www.surveyofindia.gov.in/pages/copyright-policy" target="_blank">Survey Of India</a>, Compiled by <a href="https://github.com/ramSeraph/opendata" target="_blank">ramSeraph</a>'
+});
+
 
 var baseLayers = { "Carto Positron": cartoPositron, "OpenStreetMap.org" : OSM, "ESRI Satellite": esriWorld, 
-    "Streets": gStreets, "Hybrid": gHybrid };
+    "Streets": gStreets, "Hybrid": gHybrid, "Survey of India 1:50000": soi };
 
 var map = new L.Map('map', {
     center: STARTLOCATION,
@@ -49,7 +56,7 @@ map.addControl(new L.Control.Fullscreen({position:'topright'}));
 
 // Add in a crosshair for the map. From https://gis.stackexchange.com/a/90230/44746
 var crosshairIcon = L.icon({
-    iconUrl: crosshairPath,
+    iconUrl: crosshairPath_light,
     iconSize:     [crosshairSize, crosshairSize], // size of the icon
     iconAnchor:   [crosshairSize/2, crosshairSize/2], // point of the icon which will correspond to marker's location
 });
@@ -71,6 +78,7 @@ globalGeo = L.geolet({ position: 'topright',
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
+    loadURLParams(URLParams);
     
     var input = document.querySelector('#mypic');
     input.onchange = function () {
@@ -110,11 +118,15 @@ function clearUploads() {
 
 
 function getLocation() {
+    stopIfNotLoggedIn(redirect='sapling_upload.html');
+
     globalGeo.activate()
 }
 
 
 function uploadSapling() {
+    stopIfNotLoggedIn(redirect='sapling_upload.html');
+
     // formData
     let locationHolder = $('#location').val().split(',');
     if(locationHolder.length != 2) {
@@ -205,3 +217,4 @@ function clearFields() {
     $('#girth_1m').val('');
     clearUploads();    
 }
+

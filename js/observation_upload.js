@@ -5,7 +5,7 @@
 
 var formData = new FormData();
 var globalGeo;
-var URLParams = {}; // for holding URL parameters
+// var URLParams = {}; // for holding URL parameters
 
 // #################################
 /* MAP */

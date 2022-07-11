@@ -2,7 +2,6 @@
 
 // #################################
 // GLOBAL VARS
-var URLParams = {};
 var plantationLayer = new L.geoJson(null);
 var globalSaplingsLookup = {};
 var globalObsPages = 0;

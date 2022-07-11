@@ -1,6 +1,7 @@
 // ###########################################################
 // CONSTANTS
 const crosshairPath = 'lib/focus-black.svg';
+const crosshairPath_light = 'lib/focus.svg';
 const crosshairSize = 50;
 
 const maxUploadCount = 10;
@@ -8,6 +9,7 @@ const maxUploadCount = 10;
 // ###########################################################
 // GLOBAL VARIABLES
 
+var URLParams = {};
 var STARTLOCATION = [18.57,73.7804];
 var STARTZOOM = 14;
 
@@ -337,8 +339,8 @@ function handleError(jqXHR, move=true, element=null){
     console.log(jqXHR.status, jqXHR.responseText);
     if(jqXHR.status == 401) {
         if(move == true) {
-            alert("Sorry, you might have got logged out. Taking you to the home page");
-            window.location.href = "index.html";
+            alert("Sorry, you might have got logged out. Taking you to the login page");
+            window.location.href = "login.html";
             return;
         } else {
             if(element) {
@@ -375,5 +377,13 @@ function handleError(jqXHR, move=true, element=null){
             alert(jqXHR.responseText);
             return;
         }
+    }
+}
+
+function stopIfNotLoggedIn(redirect=null) {
+    if(!getCookie('paas_auth_token')) {
+        alert(`Whoops, looks like you may have got logged out. Taking you to login page.`);
+        if(redirect) window.location.href = "login.html?redirect=sapling_upload.html";
+        else window.location.href = "login.html";
     }
 }

@@ -3,7 +3,7 @@
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
-
+    loadURLParams(URLParams);
 });
 
 
@@ -27,9 +27,12 @@ function login() {
             setCookie("paas_auth_token",returndata.token,365);
             setCookie("paas_user",payload.username,365);
             $('#account_info').html(`${payload.username} - ${payload.role}`);
-            $('#loginStatus').html(`Logged in, taking you to home page..`);
+
+            let destination = 'index.html';
+            if(URLParams['redirect']) destination = URLParams['redirect'];
+            $('#loginStatus').html(`Logged in successfully, taking you in...`);
             setTimeout(function () {
-                window.location.href = "index.html";
+                window.location.href = destination;
             }, 500);
         },
         error: function(jqXHR, exception) {
