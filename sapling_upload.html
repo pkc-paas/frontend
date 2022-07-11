@@ -72,7 +72,7 @@
 
 <div class="form-floating mb-3">
   <input class="form-control" id="local_name" type="text" placeholder="Species Local Name"/>
-  <label for="local_name">Species Local Name</label>
+  <label for="local_name">Species Local Name <span class="red">*</span></label>
 </div>
 
 <div class="form-floating mb-3">
@@ -81,28 +81,28 @@
 </div>
 
 <div class="form-floating mb-3">
-  <input class="form-control" id="botanical_name" type="text" placeholder="Sapling Name"/>
-  <label for="name">Sapling Name</label>
+  <input class="form-control" id="name" type="text" placeholder="Sapling Name"/>
+  <label for="name">Sapling Name <span class="red">*</span></label>
 </div>
 
 <div class="form-floating mb-3">
   <input class="form-control" id="planted_date" type="date" placeholder="Planted Date"/>
-  <label for="name">Planted Date</label>
+  <label for="name">Planted Date <span class="red">*</span></label>
 </div>
 
 <div class="form-floating mb-3">
   <input class="form-control" id="data_collection_date" type="date" placeholder="Data Collection Date"/>
-  <label for="name">Data Collection Date</label>
+  <label for="name">Data Collection Date <span class="red">*</span></label>
 </div>
 
 <div class="form-floating mb-3">
-  <input class="form-control" id="height" type="number" placeholder="Height" step="any"/>
-  <label for="name">Height</label>
+  <input class="form-control" id="height" type="number" placeholder="Height (in feet)" step="any"/>
+  <label for="name">Height (in feet)</label>
 </div>
 
 <div class="form-floating mb-3">
-  <input class="form-control" id="height" type="text" placeholder="Group"/>
-  <label for="name">Group</label>
+  <input class="form-control" id="group" type="text" placeholder="Group"/>
+  <label for="name">Group <span class="red">*</span></label>
 </div>
 
 <div class="form-floating">
@@ -128,7 +128,7 @@
 
 <div class="container">
   <br>
-  <div class="d-grid gap-2"><button class="btn btn-lg btn-block btn-primary" onclick="uploadSapling()">Submit</button></div>
+  <div class="d-grid gap-2"><button class="btn btn-lg btn-block btn-primary" onclick="uploadSapling()" id="submitButton">Submit</button></div>
   <p align="center"><span id="uploadSaplingStatus">&nbsp;</span></p>
 
 <br><br>

@@ -144,7 +144,7 @@ function uploadSapling() {
     // let canopy = $('#canopy').val();
     // let girth_1m = $('#girth_1m').val();
 
-    if(!name.length || !data_collection_date.length || !group.length || !local_name.length || !botanical_name.length || !planted_date.length || !name.length) {
+    if(!name.length || !data_collection_date.length || !group.length || !local_name.length || !planted_date.length || !name.length) {
         alert('all essential fields not filled');
         return;
     }
@@ -163,6 +163,8 @@ function uploadSapling() {
     // formData.append('girth_1m', girth_1m );
 
     $('#uploadSaplingStatus').html(`Uploading...`);
+    document.getElementById("submitButton").disabled = true;
+
     $.ajax({
         url : `${APIpath}/uploadSapling`,
         type : 'POST',
@@ -173,14 +175,16 @@ function uploadSapling() {
         headers: { "x-access-key": getCookie('paas_auth_token') },
         success : function(data) {
             console.log(data);
-            $('#uploadSaplingStatus').html(`Thank you! The sapling has been uploaded.`);
-            setTimeout(function () {
-                clearFields();
-            }, 1000);
+            $('#uploadSaplingStatus').html(`Thank you! The sapling has been uploaded.<br>id: ${data.sid}
+                <br>Reload this page to upload another sapling.`);
+            // setTimeout(function () {
+            //     clearFields();
+            // }, 3000);
         },
         error: function(jqXHR, exception) {
             console.log('uploadSapling POST request failed.');
-            $("#uploadSaplingStatus").html('error');
+            handleError(jqXHR, element='uploadSaplingStatus');
+            
         }
 
     });
