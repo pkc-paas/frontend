@@ -44,7 +44,7 @@
 
 #map {
   /*visibility: hidden;*/
-  height: 400px;
+  height: 50vh;
   width: 100%;
   margin: 0;
 }
@@ -53,67 +53,72 @@
 <body>
 </body>
 </html>
-<div id="topMenu"></div>
-<div class="headerOffset"></div>
+<!-- <div id="topMenu"></div> -->
+
+<div class="gradient1 gradLine_10"></div>
+<p><img src="assets/Connectree_logo.png" height="75px" width="auto"> 
+<a href="index.html">Home</a> | <a href="mainmap.html">Back to Map</a></p>
 
 <div class="container-fluid">
-<h2>Upload a Sapling</h2>
-<div class="row">
-  <div class="col-md-5">
+<h2 align="center">Upload a Sapling</h2>
+<h4>A. Photos</h4> <input type="file" id="mypic" accept="image/*" multiple class="form-control"><br>
+<!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
 
-    <form class="form-horizontal">
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='name'>Sapling name<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='name'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='local_name'>Local name<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='local_name'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='botanical_name'>Botanical name<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='botanical_name'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='planted_date'>Planted date<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='planted_date'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='data_collection_date'>Data collection date<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='data_collection_date'></div></div>
+<div id="uploadTray" class="sapling_images"></div>
+<p align="right"><button class="btn btn-sm btn-danger" onclick="clearUploads()">&nbsp;&nbsp;&nbsp;&nbsp;Clear&nbsp;&nbsp;&nbsp;&nbsp;</button></p>
 
-      <div class="row">
-        <div class="col-md-4">
-          <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='height'>Height <small>(in feet)</small><span class="red">*</span></label><div class='col-md-12'><input class='form-control' type="number" step="any" id='height'></div></div>
-        </div>
-        <!-- <div class="col-md-4">
-          <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='canopy'>Canopy <small>(dia. in m)</small></label><div class='col-md-12'><input class='form-control' type="number" step="any" id='canopy'></div></div>
-        </div>
-        <div class="col-md-4">
-          <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='girth_1m'>Girth <small>(at 1m in m)</small></label><div class='col-md-12'><input class='form-control' type="number" step="any" id='girth'></div></div>
-        </div> -->
-      </div>
+<hr>
+<h4>B. Information</h4>
 
+<div class="form-floating mb-3">
+  <input class="form-control" id="local_name" type="text" placeholder="Species Local Name"/>
+  <label for="local_name">Species Local Name</label>
+</div>
 
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='group'>Group<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='group'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='description'>Description</label><div class='col-md-12'><textarea class='form-control' type='text' id='description'></textarea></div></div>
-    </form>
+<div class="form-floating mb-3">
+  <input class="form-control" id="botanical_name" type="text" placeholder="Species Botanical Name"/>
+  <label for="botanical_name">Species Botanical Name</label>
+</div>
 
+<div class="form-floating mb-3">
+  <input class="form-control" id="botanical_name" type="text" placeholder="Sapling Name"/>
+  <label for="name">Sapling Name</label>
+</div>
 
-  </div>
-  <div class="col-md-7">
-    <div class="row">
-      <div class="col-sm-10">
-        <h3>Upload photos</h3> <input type="file" id="mypic" accept="image/*" multiple><br>
-        <!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
-      </div>
-      <div class="col-sm-2">
-        <p align="right"><button class="btn btn-sm btn-danger" onclick="clearUploads()">Clear</button></p>
-      </div>
-    </div>
-    <div id="uploadTray" class="sapling_images"></div>
-  </div>
+<div class="form-floating mb-3">
+  <input class="form-control" id="planted_date" type="date" placeholder="Planted Date"/>
+  <label for="name">Planted Date</label>
+</div>
+
+<div class="form-floating mb-3">
+  <input class="form-control" id="data_collection_date" type="date" placeholder="Data Collection Date"/>
+  <label for="name">Data Collection Date</label>
+</div>
+
+<div class="form-floating mb-3">
+  <input class="form-control" id="height" type="number" placeholder="Height" step="any"/>
+  <label for="name">Height</label>
+</div>
+
+<div class="form-floating mb-3">
+  <input class="form-control" id="height" type="text" placeholder="Group"/>
+  <label for="name">Group</label>
+</div>
+
+<div class="form-floating">
+  <textarea class="form-control" placeholder="Description" id="description" style="height: 100px"></textarea>
+  <label for="description">Description</label>
 </div>
 
 
-<div class="row">
-  <div class="col-sm-10">
-    <h3>Location</h3>
-    <p>Hold the phone exactly over the sapling then click "Capture"</p>
-    <button class="btn btn-warning btn-lg btn-block" onclick="getLocation()"><b>Capture</b></button>
-    <div class='form-group form-group-lg'><input type="text" class='form-control' id="location"></div>
-  </div>
-  <div class="col-sm-2 align-items-end">
-    <p align="right"><button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMap" aria-expanded="false" aria-controls="collapseMap">Show/Hide Map</button>
-      <!-- <a class="btn btn-secondary" data-toggle="collapse" href="#collapseMap" role="button" aria-expanded="false" aria-controls="collapseMap">Show/Hide Map</a> -->
-    </p>
-  </div>
+<hr>
+<h4>C. Location</h4>
+<p><small>Hold the phone exactly over the sapling then press "Capture". Press "Map" to confirm or manually adjust the sapling's location using a map.</small></p>
+
+<div class="input-group mb-3">
+  <button class="btn btn-outline-success" type="button" id="button-addon1" onclick="getLocation()">Capture</button>
+  <input type="text" class="form-control" placeholder="lat,long" aria-label="latitude, longitude of the sapling" aria-describedby="button-addon1" id="location" readonly>
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="collapse" data-bs-target="#collapseMap" aria-expanded="false" aria-controls="collapseMap">Map</button>
 </div>
 
 </div>
@@ -122,12 +127,16 @@
 </div>
 
 <div class="container">
-  <button class="btn ctblue btn-lg btn-block" onclick="uploadSapling()"><b>Submit</b></button>
+  <br>
+  <div class="d-grid gap-2"><button class="btn btn-lg btn-block btn-primary" onclick="uploadSapling()">Submit</button></div>
   <p align="center"><span id="uploadSaplingStatus">&nbsp;</span></p>
 
+<br><br>
+<p align="center"><a href="index.html">Home</a> | <a href="mainmap.html">Back to Map</a></p>
 </div>
-<br><br><br><br>
-<div id="footer"></div>
+<br><br>
+<div class="gradient1 gradLine_10"></div>
+<!-- <div id="footer"></div> -->
 
 <script src="js/common.js"></script>
 <script src="js/sapling_upload.js"></script>

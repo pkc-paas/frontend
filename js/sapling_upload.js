@@ -6,6 +6,12 @@
 var formData = new FormData();
 var globalGeo;
 
+// remember location from cookie
+let lastLoc = getCookie('connectree_saplings_location');
+if(lastLoc.split(',').length === 2) {
+    STARTLOCATION = lastLoc.split(',');
+}
+
 
 // #################################
 /* MAP */
@@ -21,7 +27,7 @@ var baseLayers = { "Carto Positron": cartoPositron, "OpenStreetMap.org" : OSM, "
 var map = new L.Map('map', {
     center: STARTLOCATION,
     zoom: 19,
-    layers: [gStreets],
+    layers: [gHybrid],
     scrollWheelZoom: true,
     maxZoom: 20,
     touchZoom: 'center'
@@ -53,7 +59,9 @@ crosshair.addTo(map);
 map.on('move', function(e) {
     var currentLocation = map.getCenter();
     crosshair.setLatLng(currentLocation);
-    $('#location').val(`${currentLocation.lat.toFixed(6)},${currentLocation.lng.toFixed(6)}`)
+    let loc = `${currentLocation.lat.toFixed(6)},${currentLocation.lng.toFixed(6)}`;
+    $('#location').val(loc);
+    setCookie('connectree_saplings_location', loc);
 });
 
 globalGeo = L.geolet({ position: 'topright',
