@@ -40,7 +40,6 @@ var globalUser = '';
 // ###########################################################
 // RUN ON PAGE LOAD
 $(document).ready(function() {
-
     topMenu();
     footer();
     loggedInCheck();
