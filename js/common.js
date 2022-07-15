@@ -16,12 +16,12 @@ var STARTZOOM = 14;
 let APIpath = 'https://server.nikhilvj.co.in/paas_backend/API';
 let staticPath = 'https://server.nikhilvj.co.in/paas_backend/static'
 
-if (window.location.host =="cst.pkc.org.in") { 
+if (window.location.host =="cst.pkc.org.in") {
     APIpath = 'https://cst.pkc.org.in/paas_backend/API';
     staticPath = 'https://cst.pkc.org.in/paas_backend/static';
 }
 
-if (window.location.host =="localhost:8000") { 
+if (window.location.host =="localhost:8000") {
     APIpath = 'http://localhost:5400/API';
     staticPath = 'http://localhost:5400/static';
 }
@@ -40,7 +40,6 @@ var globalUser = '';
 // ###########################################################
 // RUN ON PAGE LOAD
 $(document).ready(function() {
-
     topMenu();
     footer();
     loggedInCheck();
@@ -68,12 +67,13 @@ function topMenu() {
     // navbar navbar-expand-lg navbar-light bg-light
     // sticky menu: https://getbootstrap.com/docs/4.0/components/navbar/#placement
     var menu = `
-<nav class="navbar fixed-top navbar-expand-md navMenu">
-  <div class="container">
+<nav class="">
+  <div class="row navbar fixed-top navbar-expand-md navMenu">
+  <div class="col">
     <a class="navbar-brand" href="#"><img src="assets/Connectree_logo.png" height="70px" width="auto"></a>
   </div>
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="col">
+    <button class="navbar-toggler float-end" style="margin-right:10px" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <!-- <span class="navbar-toggler-icon"></span> -->
       <span class="oi oi-menu"></span>
     </button>
@@ -94,12 +94,12 @@ function topMenu() {
             <li><a class="dropdown-item" href="#">Individuals</a></li>
           </ul>
         </li>
-        
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Plant & Adopt</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4" id="menu_plantnAdopt">
           <li><a class="dropdown-item" href="mainmap.html">Map</a></li>
-          
+
           </ul>
         </li>
 
@@ -115,7 +115,7 @@ function topMenu() {
       </ul>
     </div>
   </div>
-
+  </div>
 </nav>
 <div class="headerOffset"></div>
 <div class="gradient1 gradLine_10"></div>
@@ -132,7 +132,7 @@ function footer(){
         </div>
         <div class="col-md-7 topSpace_60">
           <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-7" style="padding-left:10%;">
                 <h5>Office Address</h5>
                 <p>3rd floor, Placement Cell,<br>
                 Savitribai Phule Pune University,<br>
@@ -143,7 +143,7 @@ function footer(){
                 <span class="oi oi-envelope-closed"></span> &#116;&#114;&#101;&#101;&#118;&#101;&#114;&#115;&#101;&#64;&#112;&#107;&#99;&#46;&#111;&#114;&#103;&#46;&#105;&#110;
                 </p>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5" style="padding-left:10%;">
                 <h5>Connect with us</h5>
                 <p>
                 <a href="https://twitter.com/clusterpune?lang=en" target="_blank">Twitter</a><br>
@@ -153,7 +153,7 @@ function footer(){
                 </p>
             </div>
           </div>
-          <p>Copyright &#169; 2022 - Pune Knowledge Cluster (PKC) - All rights reserved</p>
+          <p><center>Copyright &#169; 2022 - Pune Knowledge Cluster (PKC) - All rights reserved</center></p>
 
         </div>
       </div>
@@ -207,7 +207,7 @@ function logout() {
             setTimeout(function () {
               window.location.href = "index.html";
             }, 1000);
-            
+
         },
         error: function(jqXHR, exception) {
             console.log('error:',jqXHR.responseText);
@@ -255,15 +255,15 @@ function loggedInCheck() {
                 <span class="oi oi-person"></span> ${globalUser}
                 </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">`;
-                
+
                 content += `<li title="role"><a class="dropdown-item" href="#"><span class="oi oi-bookmark"></span> &nbsp; ${globalRole}</a></li>`;
-                
+
                 if(['admin'].includes(returndata.role)) {
                     content += `<li><a class="dropdown-item" href="users.html">Manage Users</a></li>`;
                 }
 
                 content += `<li><a class="dropdown-item" href="#" onclick="logOutOrIn()">Sign Out</a></li>`;
-                
+
                 content += `</ul>`;
                 $('#userMenu').html(content);
 
@@ -303,11 +303,11 @@ function zoomTo(lat,lon) {
 function displayAsImage(file, destId) {
     var imgURL = URL.createObjectURL(file),
         img = document.createElement('img');
- 
+
     img.onload = function() {
       URL.revokeObjectURL(imgURL);
     };
- 
+
     img.src = imgURL;
     // 432 x 768
     // img.style.height = '40%';
