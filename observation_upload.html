@@ -42,28 +42,30 @@
   min-height: 85vh;
 }
 
-#map {
-  /*visibility: hidden;*/
-  height: 400px;
-  width: 100%;
-  margin: 0;
-}
 #Sapling_Info:hover {
-  color: #0a58ca;
+  color: white;
 }
+
 #Sapling_Info {
-  color: black;
+  color: white;
 }
+
+#topMenu1 {
+
+}
+
 </style>
 <body>
 </body>
 </html>
 <div id="topMenu1"></div>
 <div class="container-fluid">
-<h2 align="center">Upload an Observation</h2>
-<form>
-Sapling Info <a id="Sapling_Info" class="badge badge-secondary" data-toggle="collapse" href="#saplingInfo" role="button" aria-expanded="true" aria-controls="collapseStopsTable">Show/Hide</a><br>
+<h2 align="center" class="topSpace_20">Upload an Observation</h2>
+Sapling Info <a class="badge bg-primary rounded-pill" id="Sapling_Info" data-bs-toggle="collapse" href="#saplingInfo" role="button">Show/Hide</a><br>
+<div class="collapse" id="saplingInfo"></div>
+
 <hr>
+<form>
 <h4>A. Upload Photos</h4> <input type="file" id="mypic" accept="image/*" multiple><br>
 <!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
 <div id="uploadTray" class="sapling_images"></div>
