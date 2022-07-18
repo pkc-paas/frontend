@@ -41,9 +41,9 @@ var globalUser = '';
 // RUN ON PAGE LOAD
 $(document).ready(function() {
     topMenu();
+    topMenu1();
     footer();
     loggedInCheck();
-
     // initiate bootstrap / jquery components like tabs, accordions
     // initiate accordion
     // $( "#accordion" ).accordion({
@@ -122,7 +122,34 @@ function topMenu() {
     `;
     $('#topMenu').html(menu);
 }
-
+function topMenu1() {
+    // navbar navbar-expand-lg navbar-light bg-light
+    // sticky menu: https://getbootstrap.com/docs/4.0/components/navbar/#placement
+    var menu1 = `
+<nav class="">
+  <div class="row navbar fixed-top navbar-expand-md navMenu">
+  <div class="col">
+    <a class="navbar-brand" href="#"><img src="assets/Connectree_logo.png" height="70px" width="auto"></a>
+  </div>
+  <div class="col">
+    <button class="navbar-toggler float-end" style="margin-right:10px" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- <span class="navbar-toggler-icon"></span> -->
+      <span class="oi oi-menu"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown" style="margin-right:10px">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="mainmap.html">Back to Map</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</nav>
+<div class="headerOffset"></div>
+<div class="gradient1 gradLine_10"></div>
+    `;
+    $('#topMenu1').html(menu1);
+}
 function footer(){
     var footer = `
     <div class="bottomSpace_40">
