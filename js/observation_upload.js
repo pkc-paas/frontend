@@ -199,7 +199,8 @@ function saplingInfo4Obs(sapling_id) {
         success : function(returndata) {
             let r = returndata['sapling_data'];
             let content = ``;
-            content += `<p>
+            content += `<div class="alert alert-success" role="alert">
+                <p>
                 Local Name: <span class="s_local_name">${r.local_name || ''}</span><br>
                 Botanical Name: <span class="s_botanical_name">${r.botanical_name || ''}</span><br>
                 Planted Date: <span class="s_planted_date">${r.planted_date || ''}</span><br>
@@ -216,7 +217,7 @@ function saplingInfo4Obs(sapling_id) {
             if(r['num']) {
                 content += `${r['num']} Observations recorded, last on ${r['last_date']}}<br>`
             }
-            content += `</p>`;
+            content += `</p></div>`;
             $('#saplingInfo').html(content);
         },
         error: function(jqXHR, exception) {

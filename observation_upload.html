@@ -42,67 +42,68 @@
   min-height: 85vh;
 }
 
-#map {
-  /*visibility: hidden;*/
-  height: 400px;
-  width: 100%;
-  margin: 0;
+#Sapling_Info:hover {
+  color: white;
+}
+
+#Sapling_Info {
+  color: white;
+}
+
+#topMenu1 {
+
 }
 
 </style>
 <body>
 </body>
 </html>
-<div id="topMenu"></div>
-<div class="headerOffset"></div>
-
+<div id="topMenu1"></div>
 <div class="container-fluid">
-<h2>Upload an Observation <span id="saplingTitle"></span></h2>
-<div class="row">
-  <div class="col-md-5">
-    <form class="form-horizontal">
+<h2 align="center" class="topSpace_20">Upload an Observation</h2>
+<h4>Sapling Info <a class="badge bg-primary rounded-pill" id="Sapling_Info" data-bs-toggle="collapse" href="#saplingInfo" role="button">Show/Hide</a></h4>
+<div class="collapse" id="saplingInfo"></div>
 
-      <div class='form-group form-group-lg'><div class='col-md-12'>
-      Sapling Info <a class="badge badge-secondary" data-toggle="collapse" href="#saplingInfo" role="button" aria-expanded="false" aria-controls="collapseStopsTable">Show/Hide</a><br>
-      <div class="collapse hide" id="saplingInfo"></div>
-      </div></div>
-
-    
-      <!-- <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='name'>Sapling Info</label><div class='col-md-12' id="saplingInfo"></div></div> -->
-      
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='observation_date'>Observation date<span class="red">*</span></label><div class='col-md-12'><input class='form-control' type='text' id='observation_date'></div></div>
-
-
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='growth_status'>Growth Status</label><div class='col-md-12'><input class='form-control' type='text' id='growth_status'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='health_status'>Health Status</label><div class='col-md-12'><input class='form-control' type='text' id='health_status'></div></div>
-      <div class='form-group form-group-lg'><label class='col-md-12 control-label' for='observation'>Observation<span class="red">*</span></label><div class='col-md-12'><textarea class='form-control' type='text' id='observation'></textarea></div></div>
-    </form>
-
-
-  </div>
-  <div class="col-md-7">
-    <div class="row">
-      <div class="col-sm-10">
-        <h3>Upload photos</h3> <input type="file" id="mypic" accept="image/*" multiple><br>
-        <!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
-      </div>
-      <div class="col-sm-2">
-        <p align="right"><button class="btn btn-sm btn-danger" onclick="clearUploads()">Clear</button></p>
-      </div>
-    </div>
-    <div id="uploadTray" class="sapling_images"></div>
-  </div>
+<hr>
+<form>
+<h4>A. Upload Photos</h4> <input type="file" id="mypic" accept="image/*" multiple><br>
+<!-- from https://blog.addpipe.com/correct-syntax-html-media-capture/ -->
+<div id="uploadTray" class="sapling_images"></div>
+<p align="right"><button class="btn btn-sm btn-danger" onclick="clearUploads()">Clear</button></p>
+<hr>
+<h4>B. Information</h4>
+<div class="form-floating mb-3">
+  <input class='form-control' type='text' id='observation_date' placeholder="Observation date"/>
+  <label for="observation_date">Observation date<span class="red">*</span></label>
 </div>
-
-
-
+<div class="form-floating mb-3">
+  <input class='form-control' type='text' id='growth_status' placeholder="Growth Status"/>
+  <label for="growth_status">Growth Status<span class="red">*</span></label>
+</div>
+<div class="form-floating mb-3">
+  <input class='form-control' type='text' id='health_status' placeholder="Health Status"/>
+  <label for="health_status">Health Status<span class="red">*</span></label>
+</div>
+<div class="form-floating mb-3">
+  <textarea class='form-control' type='text' id='observation' style="height: 150px"></textarea>
+  <label for="observation">Observation<span class="red">*</span></label>
+</div>
+</form>
 <div class="container">
-  <button class="btn ctblue btn-lg btn-block" onclick="postObservation()"><b>Submit</b></button>
+  <div class="d-grid gap-2"><button class="btn btn-lg btn-block btn-primary" onclick="postObservation()" id="submitButton">Submit</button></div>
   <p align="center"><span id="postObservationStatus">&nbsp;</span></p>
-
+  <br><br>
+  <p align="center"><a href="index.html">Home</a> | <a href="mainmap.html">Back to Map</a></p>
+  <br>
+  <small>Notes: <br>
+  - This page is optimized for mobile screens.<br>
+  - Please enable location settings in your mobile if it's off, and grant permission for this website to access your device location.<br>
+  - In some Apple iPhones, you may have to go into your phone's privacy settings to allow applications/websites to ask for and access device location for this to work<br>
+  <br>
 </div>
+
 <br><br><br><br>
-<div id="footer"></div>
+<div class="gradient1 gradLine_10"></div>
 
 <script src="js/common.js"></script>
 <script src="js/observation_upload.js"></script>

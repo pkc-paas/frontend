@@ -54,7 +54,7 @@ input[type=checkbox] {
  width: 15px; height: 15px;
  /*-webkit-border-radius: 22px; -moz-border-radius: 22px; border-radius: 22px;*/
   border: 1px solid #000;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 
 
@@ -79,7 +79,7 @@ input[type=checkbox] {
     background: rgba(255, 255, 255, 0.8);
     /*font-size: 14px;*/
     border-radius: 5px;
-    box-shadow:0px 0px 5px black; 
+    box-shadow:0px 0px 5px black;
     height: auto;
     width: 200px;
 }
@@ -89,7 +89,7 @@ input[type=checkbox] {
     background: rgba(255, 255, 255, 0.7);
     /*font-size: 14px;*/
     border-radius: 5px;
-    box-shadow:0px 0px 5px black; 
+    box-shadow:0px 0px 5px black;
     min-height: 100px;
     max-height: 300px;
     width: 200px;
@@ -117,18 +117,18 @@ input[type=checkbox] {
     font-weight: bold;
 }
 
-.info { 
-    padding: 6px 8px; 
-    font: 14px/16px Arial, Helvetica, sans-serif; 
-    background: white; 
-    background: rgba(255,255,255,0.8); 
-    box-shadow: 0 0 15px rgba(0,0,0,0.2); 
-    border-radius: 5px; 
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
     min-height: 100px;
-} 
-.info h4 { 
-    margin: 0 0 5px; 
-    color: #777; 
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
 }
 
 #edit_description {
@@ -159,7 +159,7 @@ input[type=checkbox] {
             <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
         </ul>
 
-        <ul role="tablist"> 
+        <ul role="tablist">
             <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
         </ul>
     </div>
@@ -192,7 +192,7 @@ input[type=checkbox] {
     </div>
 
     <div class="col-md-5" id="content2">
-        
+
     </div>
 
     <div class="col-md-3" id="content3">
@@ -212,13 +212,45 @@ input[type=checkbox] {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal1Label">Edit Sapling <small><small>(id: <span id="edit_sapling_id"></span>)</small></small></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" onclick="$('#modal_editSapling').modal('hide')">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <p>Name<span class="red">*</span>: <input id="edit_name"><br>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_name' placeholder="Name"/>
+                      <label for="edit_name">Name<span class="red">*</span></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_local_name' placeholder="Local Name"/>
+                      <label for="edit_local_name">Local Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_botanical_name' placeholder="Botanical name"/>
+                      <label for="edit_botanical_name">Botanical name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_planted_date' placeholder="Planted date"/>
+                      <label for="edit_planted_date">Planted date</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_data_collection_date' placeholder="Data collection date"/>
+                      <label for="edit_data_collection_date">Data collection date<span class="red">*</span></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_group' placeholder="Group"/>
+                      <label for="edit_group">Group</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input class='form-control' type='text' id='edit_height' placeholder="Height"/>
+                      <label for="edit_height">Height</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <textarea class='form-control' id='edit_description'></textarea>
+                      <label for="edit_description">Description</label>
+                    </div>
+                    <!--<p>Name<span class="red">*</span>: <input id="edit_name"><br>
                     Local name: <input id="edit_local_name"><br>
                     Botanical name: <input id="edit_botanical_name"><br>
                     Planted date: <input id="edit_planted_date"><br>
@@ -226,16 +258,16 @@ input[type=checkbox] {
                     Group: <input id="edit_group"><br>
                     Height: <input id="edit_height"><br>
                     Description:<br>
-                    <textarea id="edit_description"></textarea>    
-                    </p>
+                    <textarea id="edit_description"></textarea>
+                  </p>-->
                 </div>
-            </div>      
+            </div>
         <div class="modal-footer">
             <span id="editSapling_status"></span> &nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-danger btn-sm" onclick="$('#modal_editSapling').modal('hide')">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-primary btn-sm" onclick="editSapling()">
             Save Changes</button><!-- data-dismiss="modal"-->
-            
+
         </div>
         </div>
     </div>
