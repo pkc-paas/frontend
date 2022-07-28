@@ -32,8 +32,8 @@ var usersTable = new Tabulator("#usersTable", {
 // ############################################
 // RUN ON PAGE LOAD
 $(document).ready(function () {
+    populateRoles();
     listUsers();
-
 });
 
 // ############################################
@@ -186,6 +186,76 @@ function revert() {
             console.log(returndata);
             $('#tableStatus').html(`${returndata.count} users reverted to APPLIED status.`);
             listUsers();
+        },
+        error: function(jqXHR, exception) {
+            handleError(jqXHR, element='tableStatus');
+        }
+    });
+}
+
+
+function changeRole() {
+    var selected = usersTable.getSelectedData();
+    if(! selected.length) {
+        alert("No users selected");
+        return;
+    }
+    let usersList = [];
+    selected.forEach(u => {
+        // bring in exceptions here as needed
+        usersList.push(u.username);
+    });
+
+    if(! usersList.length) {
+        alert("No applied users selected");
+        return;
+    }
+
+    let role = $(`#roleSelect`).val();
+    if(!confirm(`Are you sure you want to change these users to ${role} role?: ${usersList.join(', ')}`)) return;
+
+    console.log(usersList);
+    
+    let payload = {
+        "usersList": usersList,
+        "role": role
+    }
+    $('#tableStatus').html(`Please wait..`);
+    $.ajax({
+        url : `${APIpath}/changeRole`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        // dataType : 'html',
+        success : function(returndata) {
+            console.log(returndata);
+            $('#tableStatus').html(`${returndata.count} users roles changed`);
+            listUsers();
+        },
+        error: function(jqXHR, exception) {
+            handleError(jqXHR, element='tableStatus');
+        }
+    });
+}
+
+function populateRoles() {
+    $.ajax({
+        url : `${APIpath}/getRoles`,
+        type : 'GET',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        // data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        // dataType : 'html',
+        success : function(returndata) {
+            console.log(returndata);
+            let content = '';
+            returndata.roles.forEach(r => {
+                content+= `<option value="${r}">${r}</option>`;
+            })
+            $('#roleSelect').html(content);
         },
         error: function(jqXHR, exception) {
             handleError(jqXHR, element='tableStatus');

@@ -51,18 +51,18 @@ body {
 <h2>Users Management</h2>
 <div id="usersTable"></div>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <p id="tableStatus"></p>
   </div>
-  <div class="col-md-3">
-    <button class="btn btn-sm btn-success" onclick="approve()">Approve</button> <span id="selectedCount"></span> selected
+  <div class="col-md-4">
+    <button class="btn btn-sm btn-primary" onclick="changeRole()">Change Role</button> to <select id="roleSelect"></select> of selected
   </div>
-  <div class="col-md-3">
-    <button class="btn btn-sm btn-warning" onclick="revert()">Cancel Approvals</button> <span id="revertCount"></span> of selected
+  <div class="col-md-4">
+    Selected users: <button class="btn btn-sm btn-success" onclick="approve()">Approve</button> | 
+    <button class="btn btn-sm btn-warning" onclick="revert()">Cancel Approvals</button>
+    | <button onclick="deleteUsers()" class="btn btn-sm btn-danger">Delete</button>
   </div>
-  <div class="col-md-3">
-    <p><button onclick="deleteUsers()" class="btn btn-sm btn-danger">Delete</button> Selected users</p>
-  </div>
+  
 </div>
 </div>
 <hr>
