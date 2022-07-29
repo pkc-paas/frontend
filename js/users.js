@@ -51,7 +51,7 @@ function listUsers() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             usersTable.setData(returndata.data);
             $('#tableStatus').html(`Loaded`);
         },
@@ -94,7 +94,7 @@ function createUser() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             $('#createUser_status').html(`User has been created.`);
             listUsers();
         },
@@ -124,7 +124,7 @@ function approve() {
 
     if(!confirm(`Are you sure you want to approve these users: ${usersList.join(', ')}`)) return;
 
-    console.log(usersList);
+    // console.log(usersList);
     
     let payload = {
         "usersList": usersList
@@ -139,7 +139,7 @@ function approve() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             $('#tableStatus').html(`${returndata.count} users approved`);
             listUsers();
         },
@@ -167,7 +167,7 @@ function revert() {
     
     if(!confirm(`Are you sure you want to revert the approval status of these users: ${usersList.join(', ')}`)) return;
 
-    console.log(usersList);
+    // console.log(usersList);
     
     let payload = {
         "usersList": usersList
@@ -183,7 +183,7 @@ function revert() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             $('#tableStatus').html(`${returndata.count} users reverted to APPLIED status.`);
             listUsers();
         },
@@ -207,14 +207,14 @@ function changeRole() {
     });
 
     if(! usersList.length) {
-        alert("No applied users selected");
+        alert("No users selected");
         return;
     }
 
     let role = $(`#roleSelect`).val();
     if(!confirm(`Are you sure you want to change these users to ${role} role?: ${usersList.join(', ')}`)) return;
 
-    console.log(usersList);
+    // console.log(usersList);
     
     let payload = {
         "usersList": usersList,
@@ -230,7 +230,7 @@ function changeRole() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             $('#tableStatus').html(`${returndata.count} users roles changed`);
             listUsers();
         },
@@ -250,12 +250,67 @@ function populateRoles() {
         contentType: 'application/json',
         // dataType : 'html',
         success : function(returndata) {
-            console.log(returndata);
+            // console.log(returndata);
             let content = '';
             returndata.roles.forEach(r => {
                 content+= `<option value="${r}">${r}</option>`;
             })
             $('#roleSelect').html(content);
+        },
+        error: function(jqXHR, exception) {
+            handleError(jqXHR, element='tableStatus');
+        }
+    });
+}
+
+
+function deleteUsers() {
+    var selected = usersTable.getSelectedData();
+    if(! selected.length) {
+        alert("No users selected");
+        return;
+    }
+    let usersList = [];
+    selected.forEach(u => {
+        // bring in exceptions here as needed
+
+        // skip self and some designated admins
+        if(u.username == globalUser || u.username=='nikhil_admin' || u.username=='admin1') return;        
+        if(u.status == 'APPROVED') return;
+        
+        usersList.push(u.username);
+    });
+
+    if(! usersList.length) {
+        if (selected.length) {
+            alert(`Approved users cannot be offboarded. Please Cancel their approval first.`);
+            return;
+        } else {
+            alert("No users selected");
+            return; 
+        }
+    }
+
+    if(!confirm(`Are you sure you want to DELETE these users ?: ${usersList.join(', ')}`)) return;
+
+    // console.log(usersList);
+    
+    let payload = {
+        "usersList": usersList,
+    }
+    $('#tableStatus').html(`Please wait..`);
+    $.ajax({
+        url : `${APIpath}/deleteUsers`,
+        type : 'POST',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        data : JSON.stringify(payload),
+        cache: false,
+        contentType: 'application/json',
+        // dataType : 'html',
+        success : function(returndata) {
+            // console.log(returndata);
+            $('#tableStatus').html(`${returndata.count} users deleted`);
+            listUsers();
         },
         error: function(jqXHR, exception) {
             handleError(jqXHR, element='tableStatus');
