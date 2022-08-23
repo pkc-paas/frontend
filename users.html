@@ -92,7 +92,7 @@ body {
   <div class="form-group row">
     <label for="role" class="col-sm-2 col-form-label">Role <span class="red">*</span></label>
     <div class="col-sm-10">
-      <select class="custom-select mr-sm-2" id="role">
+      <select class="form-select form-select-md mb-3" id="role">
           <option selected>Choose...</option>
           <option value="sponsor">Sponsor</option>
           <option value="moderator">Moderator</option>
@@ -135,8 +135,10 @@ body {
   </div> -->
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="button" class="btn ctblue" onclick="createUser()">Create User</button> 
+      <p><button type="button" class="btn ctblue" onclick="createUser()">Create User</button> 
       &nbsp;&nbsp;&nbsp; <span id="createUser_status"></span>
+      </p>
+      <p><small>Note: Users onboarded from here will be auto-approved.</small></p>
     </div>
   </div>
 </form>

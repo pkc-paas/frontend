@@ -39,11 +39,11 @@ tabulator1.on("rowSelected", function(row){
 
 // #################################
 // MAP
-var cartoPositron = L.tileLayer.provider('CartoDB.Positron');
-var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
-var gStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
-var gHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
-var esriWorld = L.tileLayer.provider('Esri.WorldImagery');
+var cartoPositron = L.tileLayer.provider('CartoDB.Positron', {maxNativeZoom:19, maxZoom: 22});
+var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik', {maxNativeZoom:19, maxZoom: 22});
+var gStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom: 22, subdomains:['mt0','mt1','mt2','mt3']});
+var gHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{maxZoom: 22, subdomains:['mt0','mt1','mt2','mt3']});
+var esriWorld = L.tileLayer.provider('Esri.WorldImagery', {maxNativeZoom:19, maxZoom:22});
 
 var baseLayers = { "OpenStreetMap.org" : OSM, "Carto Positron": cartoPositron, "ESRI Satellite": esriWorld, 
     "Streets": gStreets, "Hybrid": gHybrid };
@@ -53,7 +53,7 @@ var map = new L.Map('map', {
     zoom: STARTZOOM,
     layers: [cartoPositron],
     scrollWheelZoom: true,
-    maxZoom: 19,
+    maxZoom: 22,
 });
 $('.leaflet-container').css('cursor','crosshair'); // from https://stackoverflow.com/a/28724847/4355695 Changing mouse cursor to crosshairs
 L.control.scale({metric:true, imperial:false}).addTo(map);
@@ -166,6 +166,7 @@ function loadObservations(pageNum=1, sapling_id=null) {
         type: "GET",
         cache: false,
         contentType: 'application/json',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
         success: function (returndata) {
             // console.log("listObservations:",returndata);
             globalSaplingsLookup = returndata['saplingsLookup'];
@@ -195,10 +196,11 @@ function loadObservations(pageNum=1, sapling_id=null) {
 
 function loadSaplingsDropdown() {
     $.ajax({
-        url: `${APIpath}/getSaplingsList`,
+        url: `${APIpath}/getSaplingsList?withObs=Y`,
         type: "GET",
         cache: false,
         contentType: 'application/json',
+        headers: { "x-access-key": getCookie('paas_auth_token') },
         success: function (returndata) {
             // console.log("getSaplingsList:",returndata);
 

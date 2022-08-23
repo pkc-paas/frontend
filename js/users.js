@@ -65,7 +65,7 @@ function listUsers() {
 function createUser() {
 
     // validation
-    if ($('#username').val().length < 8 || $('#pwd').val().length < 8 || $('#email').val().length < 8 ) {
+    if ($('#username').val().length < 2 || $('#pwd').val().length < 2 || $('#email').val().length < 8 ) {
         alert("Please fill all the mandatory fields, min 8 characters");
         return;
     }
