@@ -19,6 +19,19 @@ var soi = L.tileLayer('https://storage.googleapis.com/soi_data/export/tiles/{z}/
     attribution: '<a href="https://onlinemaps.surveyofindia.gov.in/FreeMapSpecification.aspx" target="_blank">1:50000 Open Series Maps</a> &copy; <a href="https://www.surveyofindia.gov.in/pages/copyright-policy" target="_blank">Survey Of India</a>, Compiled by <a href="https://github.com/ramSeraph/opendata" target="_blank">ramSeraph</a>'
 });
 
+// plus codes overlay
+var plusCode = L.tileLayer('https://grid.plus.codes/grid/tms/{z}/{x}/{y}.png?col=white', 
+    { tms: true, maxZoom: 22, 
+        attribution: '<a href="http://grid.plus.codes/" target="_blank">grid</a> by <a href="https://plus.codes" target="_blank">plus codes</a>' 
+    }
+);
+
+var plusCodeDark = L.tileLayer('https://grid.plus.codes/grid/tms/{z}/{x}/{y}.png', 
+    { tms: true, maxZoom: 22, opacity: 0.6, 
+        attribution: '<a href="http://grid.plus.codes/" target="_blank">grid</a> by <a href="https://plus.codes" target="_blank">plus codes</a>' 
+    }
+);
+
 var baseLayers = { "OpenStreetMap.org" : OSM, "Carto Positron": cartoPositron, "ESRI Satellite": esriWorld, 
     "Streets": gStreets, "Hybrid": gHybrid, "Survey of India 1:50000": soi };
 
@@ -36,7 +49,9 @@ var myRenderer = L.canvas({ padding: 0.5 });
 
 var overlays = {
     "plants": plantationLayer,
-    "unconfirmed": unconfirmedLayer
+    "unconfirmed": unconfirmedLayer,
+    "Plus Codes white": plusCode,
+    "Plus Codes black": plusCodeDark
 }
 
 var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, autoZIndex:false, position:'bottomright'}).addTo(map); 

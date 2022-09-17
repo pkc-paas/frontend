@@ -6,6 +6,8 @@
 var formData = new FormData();
 var globalGeo;
 
+var plantationLayer = new L.geoJson(null);
+
 // remember location from cookie
 let lastLoc = getCookie('connectree_saplings_location');
 if(lastLoc.split(',').length === 2) {
@@ -16,27 +18,45 @@ if(lastLoc.split(',').length === 2) {
 // #################################
 /* MAP */
 
-var cartoPositron = L.tileLayer.provider('CartoDB.Positron', {maxNativeZoom:19, maxZoom: 20});
-var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik', {maxNativeZoom:19, maxZoom: 20});
-var gStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
-var gHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
-var esriWorld = L.tileLayer.provider('Esri.WorldImagery', {maxNativeZoom:19, maxZoom:20});
+var cartoPositron = L.tileLayer.provider('CartoDB.Positron', {maxNativeZoom:19, maxZoom: 22});
+var OSM = L.tileLayer.provider('OpenStreetMap.Mapnik', {maxNativeZoom:19, maxZoom: 22});
+var gStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{maxZoom: 22, subdomains:['mt0','mt1','mt2','mt3']});
+var gHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{maxZoom: 22, subdomains:['mt0','mt1','mt2','mt3']});
+var esriWorld = L.tileLayer.provider('Esri.WorldImagery', {maxNativeZoom:19, maxZoom:21});
 var soi = L.tileLayer('https://storage.googleapis.com/soi_data/export/tiles/{z}/{x}/{y}.webp', {
-    maxZoom: 20,
+    maxZoom: 22,
     maxNativeZoom: 15,
     attribution: '<a href="https://onlinemaps.surveyofindia.gov.in/FreeMapSpecification.aspx" target="_blank">1:50000 Open Series Maps</a> &copy; <a href="https://www.surveyofindia.gov.in/pages/copyright-policy" target="_blank">Survey Of India</a>, Compiled by <a href="https://github.com/ramSeraph/opendata" target="_blank">ramSeraph</a>'
 });
 
+// plus codes overlay
+var plusCode = L.tileLayer('https://grid.plus.codes/grid/tms/{z}/{x}/{y}.png?col=white', 
+    { tms: true, maxZoom: 22, 
+        attribution: '<a href="http://grid.plus.codes/" target="_blank">grid</a> by <a href="https://plus.codes" target="_blank">plus codes</a>' 
+    }
+);
 
-var baseLayers = { "Carto Positron": cartoPositron, "OpenStreetMap.org" : OSM, "ESRI Satellite": esriWorld, 
-    "Streets": gStreets, "Hybrid": gHybrid, "Survey of India 1:50000": soi };
+var plusCodeDark = L.tileLayer('https://grid.plus.codes/grid/tms/{z}/{x}/{y}.png', 
+    { tms: true, maxZoom: 22, opacity: 0.6, 
+        attribution: '<a href="http://grid.plus.codes/" target="_blank">grid</a> by <a href="https://plus.codes" target="_blank">plus codes</a>' 
+    }
+);
+
+var baseLayers = { 
+    "Carto Positron": cartoPositron, 
+    "OpenStreetMap.org" : OSM, 
+    "ESRI Satellite": esriWorld, 
+    "Streets": gStreets, 
+    "Hybrid": gHybrid, 
+    "Survey of India 1:50000": soi
+};
 
 var map = new L.Map('map', {
     center: STARTLOCATION,
     zoom: 19,
     layers: [gHybrid],
     scrollWheelZoom: true,
-    maxZoom: 20,
+    maxZoom: 22,
     touchZoom: 'center'
 });
 $('.leaflet-container').css('cursor','crosshair'); // from https://stackoverflow.com/a/28724847/4355695 Changing mouse cursor to crosshairs
@@ -46,7 +66,9 @@ L.control.scale({metric:true, imperial:false}).addTo(map);
 var myRenderer = L.canvas({ padding: 0.5 });
 
 var overlays = {
-    //"plants": plantationLayer
+    "Plus Codes white": plusCode,
+    "Plus Codes black": plusCodeDark,
+    "plants": plantationLayer
 };
 var layerControl = L.control.layers(baseLayers, overlays, {collapsed: true, autoZIndex:false, position:'topright'}).addTo(map); 
 
@@ -218,3 +240,50 @@ function clearFields() {
     clearUploads();    
 }
 
+function saplingsPreview() {
+    $('#saplingsPreview_status').html(`Loading..`);
+    $.ajax({
+        url : `${APIpath}/saplingsPreview`,
+        type : 'GET',
+        cache: false,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        headers: { "x-access-key": getCookie('paas_auth_token') },
+        success : function(returndata) {
+            // console.log(returndata.data);
+            $('#saplingsPreview_status').html(`Loaded`);
+
+            plantationLayer.clearLayers();
+            let plants = Papa.parse(returndata.data, {header:true, skipEmptyLines:true});
+
+            plants.data.forEach(r => {
+                let content = `${r.name}<br>${r.planted_date}<br><small>id: ${r.id}</small>`;
+                var marker = L.circleMarker([r.lat,r.lon], { renderer: myRenderer,
+                    radius: 5,
+                    // fillColor: decideFillColor(r.adoption_status),
+                    fillColor: 'yellow',
+                    color: 'white',
+                    weight: 0.5,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                })
+                .bindTooltip(content)
+                .bindPopup(content);
+            
+                // for leaflet-search plugin: the marker needs to have feature.properties
+                marker.feature = {};
+                marker.feature.properties = r;
+                marker.addTo(plantationLayer);
+            });
+            if (!map.hasLayer(plantationLayer)) map.addLayer(plantationLayer);
+            
+
+        },
+        error: function(jqXHR, exception) {
+            console.log('saplingsPreview POST request failed.');
+            handleError(jqXHR, element='saplingsPreview_status');
+            
+        }
+
+    });    
+}
