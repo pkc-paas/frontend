@@ -69,7 +69,8 @@ function signup() {
         "email": $('#email').val(),
         "pwd": $('#pw').val(),
         "role": $('#role').val(),
-        "referral": $('#referral').val()
+        "referral": $('#referral').val(),
+        "remarks": "",
     };
 
     if ( payload['username'].length < 4 || payload['username'].length >20) {
